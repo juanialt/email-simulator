@@ -1,0 +1,49 @@
+@import './config.scss';
+
+.root {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: $header-height;
+  align-items: center;
+}
+
+.btnContainer {
+  height: 100%;
+  display: flex;
+}
+
+.btn {
+  color: #323339;
+  height: 100%;
+  padding: 0 2rem;
+  text-decoration: none;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid white;
+  transition: all .15s;
+
+  &:hover {
+    border-bottom: 2px solid #F26968;
+    background: #F5F5F5;
+    color: #F26968;
+  }
+}
+
+.imageLink {
+  height: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  img {
+    height: 100%;
+  }
+}

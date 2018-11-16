@@ -1,0 +1,12 @@
+SELECT
+m.subject,
+m.body,
+u.username
+
+FROM
+messages M INNER JOIN recipients R
+on M.id_message = r.id_message
+INNER_JOIN users U on M.id_user = U.id_user
+
+WHERE
+r.id_user = ?

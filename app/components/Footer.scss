@@ -1,0 +1,15 @@
+@import './config.scss';
+
+:global {
+  .footer-component {
+    background: $moss-river;
+  
+    section {
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: white;
+    }
+  }
+}

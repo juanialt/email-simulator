@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+// @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import '../config.scss';
+
+@import '../../../node_modules/normalize-scss/sass/normalize';
+@include normalize();
+
+:global {
+  /* Box Sizing Reset
+  ======================================== */
+  html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  article *,
+  article *:before,
+  article *:after {
+    box-sizing: border-box;
+  }
+
+  /* Normalize Corrections
+  ======================================== */
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  /* Base Rules
+  ======================================== */
+
+  html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 62.5%; //10px
+    // font-size: 16px;
+  }
+
+  body {
+    font-size: 1.6rem;
+    // font-size: 62.5%; //10px
+    // font-size: auto;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}

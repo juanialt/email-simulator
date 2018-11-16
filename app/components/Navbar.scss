@@ -1,0 +1,23 @@
+@import "./config.scss";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  background: $moss-river;
+
+  span, svg {
+    color: white;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .selected {
+    background: #f26968;
+  }
+}
+
+.label {
+  white-space: nowrap;
+}

@@ -1,0 +1,27 @@
+@import "./config.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  height: $app-header-height;
+  align-items: center;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.imageLink {
+  height: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  img {
+    height: 100%;
+  }
+}

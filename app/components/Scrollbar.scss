@@ -1,0 +1,146 @@
+// Functions
+map_get(obj, key)
+    return obj[key]
+
+// Colors
+$ps-border-radius = 4px
+
+$ps-rail-default-opacity = 0
+$ps-rail-container-hover-opacity = 0.6
+$ps-rail-hover-opacity = 0.9
+
+$ps-bar-bg = transparent
+$ps-bar-container-hover-bg = #aaa
+$ps-bar-hover-bg = #999
+$ps-rail-hover-bg = #eee
+
+// Sizes
+$ps-scrollbar-x-rail-bottom = 3px
+$ps-scrollbar-x-rail-height = 8px
+$ps-scrollbar-x-bottom = 0
+$ps-scrollbar-x-height = 8px
+
+$ps-scrollbar-y-rail-right = 3px
+$ps-scrollbar-y-rail-width = 8px
+$ps-scrollbar-y-right = 0
+$ps-scrollbar-y-width = 8px
+
+// Mixins
+scrollbarRailDefault($theme)
+    display none
+    position absolute
+    /* please don't change 'position' */
+    border-radius map_get($theme, border-radius)
+    opacity map_get($theme, rail-default-opacity)
+    transition background-color .2s linear, opacity .2s linear
+
+scrollbarRailHover($theme)
+    background-color map_get($theme, rail-hover-bg)
+    opacity map_get($theme, rail-hover-opacity)
+
+scrollbarDefault($theme)
+    position absolute
+    /* please don't change 'position' */
+    background-color map_get($theme, bar-container-hover-bg)
+    border-radius map_get($theme, border-radius)
+    transition background-color .2s linear
+
+scrollbarHover($theme)
+    background-color map_get($theme, bar-hover-bg)
+
+inScrolling($theme)
+    &.ps-inScrolling
+        pointer-events none
+        &.ps-x > .ps-scrollbar-x-rail
+            scrollbarRailHover($theme)
+            > .ps-scrollbar-x
+                scrollbarHover($theme)
+        &.ps-y > .ps-scrollbar-y-rail
+            scrollbarRailHover($theme)
+            > .ps-scrollbar-y
+                scrollbarHover($theme)
+
+// Layout and theme mixin
+psContainer($theme)
+    -ms-touch-action none
+    touch-action none
+    overflow hidden !important
+    -ms-overflow-style none
+
+    // Edge
+    @supports (-ms-overflow-style: none)
+        overflow: auto !important
+
+    // IE10+
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+        overflow auto !important
+
+    &.ps-active-x > .ps-scrollbar-x-rail,
+    &.ps-active-y > .ps-scrollbar-y-rail
+        display block
+        background-color map_get($theme, bar-bg)
+
+    inScrolling($theme)
+
+    > .ps-scrollbar-x-rail
+        scrollbarRailDefault($theme)
+        bottom map_get($theme, scrollbar-x-rail-bottom) /* there must be 'bottom' for ps-scrollbar-x-rail */
+        height map_get($theme, scrollbar-x-rail-height)
+
+        > .ps-scrollbar-x
+            scrollbarDefault($theme)
+            bottom map_get($theme, scrollbar-x-bottom) /* there must be 'bottom' for ps-scrollbar-x */
+            height map_get($theme, scrollbar-x-height)
+
+    > .ps-scrollbar-y-rail
+        scrollbarRailDefault($theme)
+        right map_get($theme, scrollbar-y-rail-right) /* there must be 'right' for ps-scrollbar-y-rail */
+        width map_get($theme, scrollbar-y-rail-width)
+
+        > .ps-scrollbar-y
+            scrollbarDefault($theme)
+            right map_get($theme, scrollbar-y-right) /* there must be 'right' for ps-scrollbar-y */
+            width map_get($theme, scrollbar-y-width)
+
+    &:hover
+        inScrolling($theme)
+
+        > .ps-scrollbar-x-rail,
+        > .ps-scrollbar-y-rail
+            opacity map_get($theme, rail-container-hover-opacity)
+
+        > .ps-scrollbar-x-rail:hover
+            scrollbarRailHover($theme)
+
+            > .ps-scrollbar-x
+                scrollbarHover($theme)
+
+        > .ps-scrollbar-y-rail:hover
+            scrollbarRailHover($theme)
+
+            > .ps-scrollbar-y
+                scrollbarHover($theme)
+
+// Themes
+ps-theme-default = {
+    border-radius: $ps-border-radius,
+    rail-default-opacity: $ps-rail-default-opacity,
+    rail-container-hover-opacity: $ps-rail-container-hover-opacity,
+    rail-hover-opacity: $ps-rail-hover-opacity,
+    bar-bg: $ps-bar-bg,
+    bar-container-hover-bg: $ps-bar-container-hover-bg,
+    bar-hover-bg: $ps-bar-hover-bg,
+    rail-hover-bg: $ps-rail-hover-bg,
+    scrollbar-x-rail-bottom: $ps-scrollbar-x-rail-bottom,
+    scrollbar-x-rail-height: $ps-scrollbar-x-rail-height,
+    scrollbar-x-bottom: $ps-scrollbar-x-bottom,
+    scrollbar-x-height: $ps-scrollbar-x-height,
+    scrollbar-y-rail-right: $ps-scrollbar-y-rail-right,
+    scrollbar-y-rail-width: $ps-scrollbar-y-rail-width,
+    scrollbar-y-right: $ps-scrollbar-y-right,
+    scrollbar-y-width: $ps-scrollbar-y-width,
+}
+
+// Default theme
+.ps-container
+    psContainer(ps-theme-default)
