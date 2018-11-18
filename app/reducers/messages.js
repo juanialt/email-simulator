@@ -20,8 +20,11 @@ function* getInboxSaga() {
   yield put({ type: GET_INBOX_REQUESTED });
 
   try {
-    const response = yield axios.get("http://localhost:8888/api_email_simulator/messages.php");
-    yield put({ type: GET_INBOX_SUCCEEDED, payload: response });
+    const response = yield axios.get(
+      "http://localhost:8888/api_email_simulator/messages.php",
+      { withCredentials: true }
+    );
+    yield put({ type: GET_INBOX_SUCCEEDED, messages: response.data });
   } catch (error) {
     const errorMessage = error.response.data.errorMessage || "Error desconocido";
     toast.error(errorMessage, {
@@ -40,7 +43,7 @@ export function* messagesSaga() {
 /* Initial Reducer State
 ======================================== */
 const initialState = {
-  inbox: null,
+  emailsSent: null,
   fetchingInbox: false
 };
 
@@ -51,9 +54,9 @@ export const messagesReducer = handleActions({
     ...state,
     fetchingInbox: true
   }),
-  GET_INBOX_SUCCEEDED: (state, action) => ({
+  GET_INBOX_SUCCEEDED: (state, { messages }) => ({
     ...state,
-    inbox: action.response,
+    emailsSent: messages,
     fetchingInbox: false
   })
 },

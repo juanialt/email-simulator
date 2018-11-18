@@ -52,6 +52,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
                   <Route path="/dashboard" component={AppContainer} />
+                  <Route path="/new" component={AppContainer} />
                   <Redirect from='/register' to='/dashboard' />
                   <Redirect from='/sign-in' to='/dashboard' />
                   <Route component={NoMatch} />

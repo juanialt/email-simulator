@@ -1,7 +1,8 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import { createAction, handleActions } from "redux-actions";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { get } from "lodash";
 import { placeholderAuth } from "../../lib/browser-utils";
 
 /* Action Types
@@ -54,12 +55,17 @@ function* signinSaga({ payload }) {
   formData.append("password", password);
 
   try {
-    const response = yield axios.post("http://localhost:8888/api_email_simulator/login.php", formData);
+    const response = yield axios.post(
+      "http://localhost:8888/api_email_simulator/login.php",
+      formData,
+      { withCredentials: true }
+    );
+
     localStorage.setItem("user", JSON.stringify(response.data));
 
     yield put({ type: SIGN_IN_SUCCEEDED, user: response.data });
   } catch (error) {
-    const errorMessage = error.response.data.errorMessage || "Error desconocido";
+    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_RIGHT
     });
@@ -70,7 +76,7 @@ function* signinSaga({ payload }) {
 function* signoutSaga() {
   yield put({ type: SIGN_OUT_REQUESTED });
   try {
-    yield call(() => console.log("SING OUT TEST"));
+    yield axios.post("http://localhost:8888/api_email_simulator/logout.php");
     localStorage.clear(); // Clear all Local Storage Data
     yield put({ type: SIGN_OUT_SUCCEEDED });
   } catch (error) {

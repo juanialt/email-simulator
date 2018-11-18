@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AppHeader from "../components/AppHeader";
 import Navbar from "../components/Navbar";
 import Dashboard from "../containers/Dashboard";
+import NewEmail from "../containers/NewEmail";
 
 import "./AppContainer.scss";
 
@@ -29,6 +30,7 @@ class AppContainer extends React.Component {
         <section className="app-container-component-content">
           <Navbar />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/new" component={NewEmail} />
         </section>
         <ToastContainer />
       </section>
