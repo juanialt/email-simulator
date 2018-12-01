@@ -67,7 +67,7 @@ function* signinSaga({ payload }) {
   } catch (error) {
     const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
     toast.error(errorMessage, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_LEFT
     });
     yield put({ type: SIGN_IN_FAILED, error });
   }

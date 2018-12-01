@@ -18,16 +18,16 @@ class Navbar extends React.Component {
     return (
       <section className={s.root}>
         <List>
-          <ListItem component={Link} to="/new">
+          <ListItem className={classNames({ [s.selected]: pathName.includes("new") })} component={Link} to="/new">
             <ListItemIcon><Create /></ListItemIcon>
             <ListItemText className={s.label} inset primary="Redactar" />
           </ListItem>
-          <Divider />
-          <ListItem className={classNames({ [s.selected]: pathName.includes("dashboard") })} component={Link} to="/dashboard">
+          <Divider className={s.divider} />
+          <ListItem className={classNames({ [s.selected]: pathName.includes("inbox") })} component={Link} to="/mails/inbox">
             <ListItemIcon><Inbox /></ListItemIcon>
             <ListItemText className={s.label} inset primary="Bandeja de Entrada" />
           </ListItem>
-          <ListItem className={classNames({ [s.selected]: pathName.includes("menu") })} component={Link} to="/sent">
+          <ListItem className={classNames({ [s.selected]: pathName.includes("sent") })} component={Link} to="/mails/sent">
             <ListItemIcon><Send /></ListItemIcon>
             <ListItemText className={s.label} inset primary="Enviados" />
           </ListItem>

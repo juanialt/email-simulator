@@ -29,7 +29,8 @@ class AppContainer extends React.Component {
         {this.props.user && <AppHeader user={this.props.user} />}
         <section className="app-container-component-content">
           <Navbar />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/mails/inbox" component={Dashboard} />
+          <Route path="/mails/sent" component={Dashboard} />
           <Route path="/new" component={NewEmail} />
         </section>
         <ToastContainer />

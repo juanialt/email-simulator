@@ -50,11 +50,11 @@ class App extends React.Component {
             <Router>
               <MuiThemeProvider theme={theme}>
                 <Switch>
-                  <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
-                  <Route path="/dashboard" component={AppContainer} />
+                  <Route exact path="/" render={() => <Redirect to="/mails/inbox" />} />
+                  <Route path="/mails" component={AppContainer} />
                   <Route path="/new" component={AppContainer} />
-                  <Redirect from='/register' to='/dashboard' />
-                  <Redirect from='/sign-in' to='/dashboard' />
+                  <Redirect from='/register' to='/mails/inbox' />
+                  <Redirect from='/sign-in' to='/mails/inbox' />
                   <Route component={NoMatch} />
                 </Switch>
               </MuiThemeProvider>

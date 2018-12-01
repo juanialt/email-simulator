@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import { appReducer as app } from "./reducers/app";
 import { sessionReducer as session } from "./reducers/session";
 import { messagesReducer as messages } from "./reducers/messages";
+import { usersReducer as users } from "./reducers/users";
 import rootSaga from "./sagas";
 
 const configureStore = () => {
@@ -11,7 +12,7 @@ const configureStore = () => {
 
   return {
     ...createStore(
-        combineReducers({ app, session, messages }),
+        combineReducers({ app, session, messages, users }),
         applyMiddleware(sagaMiddleware)
     ),
     runSaga: sagaMiddleware.run(rootSaga)

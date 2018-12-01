@@ -1,0 +1,44 @@
+@import '../../components/config.scss';
+
+.root {
+  width: 100%;
+  overflow: auto;
+}
+
+.email {
+  background: white;
+
+  display: flex;
+  padding: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background: $blue-50;
+  }
+}
+
+.subject {
+  flex: 1;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.sender {
+  width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 12px;
+}
+
+.emailContent {
+  border-top: 1px solid $grey-500;
+  background: white;
+  padding: 1rem;
+}

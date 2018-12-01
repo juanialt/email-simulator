@@ -1,122 +1,21 @@
-@import '../../components/config.scss';
+@import "../../components/config.scss";
 
 .root {
   width: 100%;
   overflow: auto;
-}
+  padding: 2rem;
 
-.salesContainer {
-  height: 300px;
-  margin: 2rem;
-  margin-top: 0;
-}
-
-.totalCard {
-  margin: 2rem;
-  display: flex;
-  padding: 1.5rem;
-  flex: 1;
-  flex-direction: row;
-
-  h2 {
-    margin: 0;
-    font-size: 3.5rem;
-    padding-bottom: 0.5rem;
-    font-weight: 300;
-  }
-
-  h3 {
-    margin: 0;
-    color: $grey-500;
-    font-weight: 300;
-  }
-
-  > div {
-    padding-left: 1.5rem;
-  }
-
-  .cardIcon {
-    color: white;
-    border-radius: 50%;
-    width: 7rem;
-    height: 7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-
-    svg {
-      font-size: 4rem;
-    }
-  }
-
-  .totalSales {
-    background: $deep-purple-500;
-  }
-
-  .totalOrders {
-    background: $pink-500;
-  }
-
-  .pendingOrders {
-    background: $teal-500;
+  h1 {
+    margin-top: 0;
   }
 }
 
-.totalSalesByEmployee {
-  margin: 2rem;
-  padding: 1.5rem;
-  flex: 1;
-  max-height: 40rem;
-  display: flex;
-  flex-direction: column;
-
+.emailContainer {
   >div {
-    overflow: auto;
-  }
-
-  .row {
     border-bottom: 1px solid $grey-500;
-    display: flex;
-    height: 4rem;
-    align-items: center;
 
     &:last-of-type {
       border: none;
     }
-
-    >div {
-      flex: 1;
-    }
-  }
-}
-
-.openTables {
-  margin: 2rem;
-  padding: 1.5rem;
-  flex: 1;
-  max-height: 40rem;
-  display: flex;
-  flex-direction: column;
-
-  >div {
-    overflow: auto;
-  }
-
-  .order {
-    margin-bottom: 1rem;
-  }
-}
-
-.totalSalesByProduct {
-  margin: 2rem;
-  padding: 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-
-  >div {
-    overflow: auto;
   }
 }
