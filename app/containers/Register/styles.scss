@@ -7,26 +7,17 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    background: url("../../images/background-10.png");
-  }
+  background: url("../../images/background-10.png");
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
-  max-width: 40rem;
+  max-width: 50rem;
   width: 100%;
   padding: 2.5rem;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
 
   button {
     margin: 2rem 0;
@@ -38,4 +29,18 @@
   text-align: center;
   margin-top: 0;
   margin-bottom: 2rem;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.successIcon {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: $green-200;
+  border-radius: 50%;
+  padding: 20px;
 }

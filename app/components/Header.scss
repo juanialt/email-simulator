@@ -2,7 +2,7 @@
 
 .root {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   left: 0;
   right: 0;
@@ -32,6 +32,7 @@
   transition: all .15s;
 
   &:hover {
+    text-decoration: none;
     border-bottom: 2px solid #F26968;
     background: #F5F5F5;
     color: #F26968;

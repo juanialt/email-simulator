@@ -31,16 +31,49 @@ export const signOut = createAction(SIGN_OUT);
 /* Sagas
 ======================================== */
 function* registerSaga({ payload }) {
-  const { email, password } = payload;
+  const {
+    username,
+    name,
+    lastName,
+    address,
+    phone,
+    countryId,
+    stateId,
+    city,
+    email,
+    password
+  } = payload;
+
+  // console.log(payload);
+  // debugger;
 
   yield put({ type: REGISTER_REQUESTED });
+
+  const formData = new URLSearchParams();
+  formData.append("username", username);
+  formData.append("name", name);
+  formData.append("lastName", lastName);
+  formData.append("address", address);
+  formData.append("phone", phone);
+  formData.append("countryId", countryId);
+  formData.append("stateId", stateId);
+  formData.append("city", city);
+  formData.append("email", email);
+  formData.append("password", password);
+
   try {
-    // const data = yield call(rsf.auth.createUserWithEmailAndPassword, email, password);
-    // TODO: REQUEST REGISTER BACKEND
-    console.log(email, password);
-    const response = 123;
+    const response = yield axios.post(
+      "http://localhost:8888/api_email_simulator/register.php",
+      formData,
+      { withCredentials: true }
+    );
+
     yield put({ type: REGISTER_SUCCEEDED, user: response });
   } catch (error) {
+    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    toast.error(errorMessage, {
+      position: toast.POSITION.BOTTOM_LEFT
+    });
     yield put({ type: REGISTER_FAILED, error });
   }
 }
@@ -97,6 +130,7 @@ export function* sessionSaga() {
 ======================================== */
 const initialState = {
   registerFetching: false,
+  registerSucceeded: null,
   registerError: null,
 
   user: placeholderAuth(),
@@ -112,15 +146,18 @@ const initialState = {
 export const sessionReducer = handleActions({
   REGISTER_REQUESTED: state => ({
     ...state,
-    registerFetching: true
+    registerFetching: true,
+    registerSucceeded: null
   }),
   REGISTER_SUCCEEDED: state => ({
     ...state,
-    registerFetching: false
+    registerFetching: false,
+    registerSucceeded: true
   }),
   REGISTER_FAILED: (state, { error }) => ({
     ...state,
     registerFetching: false,
+    registerSucceeded: false,
     registerError: error
   }),
 

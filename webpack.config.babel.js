@@ -36,9 +36,11 @@ module.exports = {
       dry: false
     }),
     new WriteFilePlugin(),
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, "index.html")
-    }]),
+    new CopyWebpackPlugin([
+      { from: path.resolve(__dirname, "index.html") },
+      { from: path.resolve(__dirname, "./app/images/favicon.ico") },
+      { from: path.resolve(__dirname, "./app/images/favicon.png") }
+    ]),
     new LoaderOptionsPlugin({ options: {} })
   ],
 
