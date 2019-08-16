@@ -30,7 +30,7 @@ class NewEmail extends React.Component {
     htmlCode: "",
 
     from: this.props.user.username || "",
-    to: "",
+    to: [],
     subject: ""
   }
 
@@ -109,11 +109,13 @@ class NewEmail extends React.Component {
 
   render() {
     console.log("------");
-    console.log(this.props.users);
+    console.log(this.props);
     console.log("------");
 
     const { users } = this.props;
     const { from, to, subject } = this.state;
+
+    const valid = to.length > 0;
 
     return (
       <div className={s.root}>
@@ -121,6 +123,7 @@ class NewEmail extends React.Component {
           <Input name="from" value={from} placeholder="Remitente" type="email" required disabled onChange={this.handleInputChange} />
 
           <Select
+            multiple
             value={to}
             onChange={this.handleInputChange}
             displayEmpty
@@ -143,7 +146,7 @@ class NewEmail extends React.Component {
         </section>
 
         <section className={s.footer}>
-          <Button variant="contained" color="primary" onClick={this.handleEmailSend}>
+          <Button disabled={!valid} variant="contained" color="primary" onClick={this.handleEmailSend}>
             Enviar
           </Button>
         </section>

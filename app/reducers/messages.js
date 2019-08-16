@@ -85,7 +85,7 @@ function* sendMessageSaga({ payload }) {
       position: toast.POSITION.BOTTOM_LEFT
     });
 
-    window.location.replace("http://localhost:9090/new");
+    // window.location.replace("http://localhost:9090/mails/sent");
     yield put({ type: SEND_MESSAGE_SUCCEEDED, message: response.data });
   } catch (error) {
     const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");

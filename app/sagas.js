@@ -3,6 +3,7 @@ import { sessionSaga } from "./reducers/session";
 import { messagesSaga } from "./reducers/messages";
 import { usersSaga } from "./reducers/users";
 import { regionsSaga } from "./reducers/regions";
+import { labelsSaga } from "./reducers/labels";
 
 export function* logSaga() {
   yield takeLatest("*", action => {
@@ -18,7 +19,8 @@ export default function* rootSaga() {
     fork(sessionSaga),
     fork(messagesSaga),
     fork(usersSaga),
-    fork(regionsSaga)
+    fork(regionsSaga),
+    fork(labelsSaga)
   ]);
 }
 

@@ -53,7 +53,7 @@ class App extends React.Component {
                 <Switch>
                   <Route exact path="/" render={() => <Redirect to="/mails/inbox" />} />
                   <Route path="/mails" component={AppContainer} />
-                  <Route path="/new" component={AppContainer} />
+                  <Route path="/newemail" component={AppContainer} />
                   <Redirect from='/register' to='/mails/inbox' />
                   <Redirect from='/sign-in' to='/mails/inbox' />
                   <Route component={NoMatch} />

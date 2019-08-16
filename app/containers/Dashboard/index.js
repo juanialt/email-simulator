@@ -23,6 +23,10 @@ class Dashboard extends React.Component {
     if (pathName.includes("sent")) {
       this.props.getSentMessages();
     }
+
+    console.log("----------");
+    console.log(pathName);
+    console.log("----------");
   }
 
   // componentDidUpdate(prevProps) {

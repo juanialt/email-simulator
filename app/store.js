@@ -6,6 +6,7 @@ import { sessionReducer as session } from "./reducers/session";
 import { messagesReducer as messages } from "./reducers/messages";
 import { usersReducer as users } from "./reducers/users";
 import { regionsReducer as regions } from "./reducers/regions";
+import { labelsReducer as labels } from "./reducers/labels";
 import rootSaga from "./sagas";
 
 const configureStore = () => {
@@ -13,7 +14,7 @@ const configureStore = () => {
 
   return {
     ...createStore(
-        combineReducers({ app, session, messages, users, regions }),
+        combineReducers({ app, session, messages, users, regions, labels }),
         applyMiddleware(sagaMiddleware)
     ),
     runSaga: sagaMiddleware.run(rootSaga)
