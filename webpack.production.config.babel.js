@@ -3,7 +3,8 @@ import { DefinePlugin, LoaderOptionsPlugin } from "webpack";
 import WriteFilePlugin from "write-file-webpack-plugin";
 import CleanWebpackPlugin from "clean-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
-import UglifyJsPlugin from "uglifyjs-webpack-plugin";
+// import UglifyJsPlugin from "uglifyjs-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 import { assign } from "lodash/fp";
 import config from "./webpack.config.babel";
 
@@ -27,8 +28,6 @@ export default assign(config, {
   ],
   devtool: false,
   optimization: {
-    minimizer: [new UglifyJsPlugin({
-      parallel: true
-    })]
+    minimizer: [new TerserPlugin()]
   }
 });

@@ -1,0 +1,27 @@
+@import "../../components/config.scss";
+
+.root {
+  width: 100%;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  height: 50px;
+  
+  h1 {
+    margin: 0;
+  }
+}
+
+.emailContainer {
+  >div {
+    &:last-of-type {
+      border: none;
+    }
+  }
+}

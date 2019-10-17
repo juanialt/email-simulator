@@ -81,17 +81,19 @@
     "notistack": "^0.3.7",
     "prop-types": "^15.5.10",
     "pug": "^2.0.0-rc.2",
+    "query-string": "^6.8.2",
     "react": "^16.4.2",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.0.0",
     "react-draft-wysiwyg": "^1.12.13",
     "react-jss": "^8.6.1",
     "react-redux": "^5.0.5",
-    "react-router-dom": "^4.0.0",
+    "react-router-dom": "^5.1.2",
     "react-toastify": "^4.4.3",
     "redux": "^3.6.0",
     "redux-actions": "^2.6.1",
     "redux-saga": "^0.15.3",
-    "redux-saga-firebase": "^0.14.1"
+    "redux-saga-firebase": "^0.14.1",
+    "terser-webpack-plugin": "^2.1.3"
   }
 }

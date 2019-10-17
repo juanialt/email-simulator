@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import AttachIcon from "@material-ui/icons/AttachFile";
 
 import { sendMessage } from "../../reducers/messages";
 import { getUsers } from "../../reducers/users";
@@ -31,7 +32,8 @@ class NewEmail extends React.Component {
 
     from: this.props.user.username || "",
     to: [],
-    subject: ""
+    subject: "",
+    files: null
   }
 
   componentDidMount() {
@@ -94,26 +96,56 @@ class NewEmail extends React.Component {
   }
 
   handleEmailSend = () => {
-    const { htmlCode, from, to, subject } = this.state;
+    const { htmlCode, from, to, subject, files } = this.state;
 
     if (this.validateNewEmail()) {
-      console.log("TODO BIEN AHORA!! --- SEND EMAIL!!");
-      console.log(htmlCode);
-      console.log(subject);
-      console.log(from);
-      console.log(to);
-
-      this.props.sendMessage({ from, to, subject, htmlCode });
+      this.props.sendMessage({ from, to, subject, htmlCode, files });
+      this.clearForm();
     }
   }
 
-  render() {
-    console.log("------");
-    console.log(this.props);
-    console.log("------");
+  clearForm = () => {
+    console.log("here 123 clear!");
+    this.setState({
+      contentState: null,
+      editorState: null,
+      htmlCode: "",
+      to: [],
+      subject: "",
+      files: null
+    });
+  }
 
+  handleFileChange = event => {
+    this.setState({
+      files: event.target.files
+    });
+  }
+
+  renderFiles = () => {
+    const { files } = this.state;
+
+    const amount = files.length;
+    const message = amount > 1 ? `${amount} archivos adjuntos` : `${amount} archivo adjunto`;
+
+    return (
+      <div className={s.attachments}>
+        <div><p>{message}</p></div>
+        <div>
+          {Array.from(files).map((file, index) => {
+            console.log(file);
+            return (
+              <p key={index}>{file.name}</p>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  render() {
     const { users } = this.props;
-    const { from, to, subject } = this.state;
+    const { from, to, subject, files, editorState } = this.state;
 
     const valid = to.length > 0;
 
@@ -138,6 +170,7 @@ class NewEmail extends React.Component {
 
         <section className={s.editorContainer}>
           <Editor
+            editorState={editorState}
             toolbarClassName={s.editorToolbar}
             wrapperClassName={s.editorWrapper}
             editorClassName={s.editorText}
@@ -145,7 +178,27 @@ class NewEmail extends React.Component {
             onContentStateChange={this.onContentStateChange} />
         </section>
 
+        {files && this.renderFiles()}
+
+        {/* <input type="file" name="fileToUpload" id="fileToUpload" multiple onChange={this.handleFileChange}></input> */}
+
         <section className={s.footer}>
+
+          {/* {files && files.map(file => <span>{file.name}</span>)} */}
+
+          <input
+            style={{ display: "none" }}
+            type="file"
+            name="fileToUpload"
+            id="fileToUpload"
+            multiple
+            onChange={this.handleFileChange} />
+          <label htmlFor="fileToUpload" className="m-r-15" title="Adjuntar archivos">
+            <Button variant="contained" component="span" color="primary">
+              <AttachIcon />
+            </Button>
+          </label>
+
           <Button disabled={!valid} variant="contained" color="primary" onClick={this.handleEmailSend}>
             Enviar
           </Button>

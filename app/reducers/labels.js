@@ -111,6 +111,7 @@ export const labelsReducer = handleActions({
   ADD_LABEL_SUCCEEDED: (state, { label }) => ({
     ...state,
     fetchingAddLabel: false,
+    fetchingAddLabelSuccess: true,
     labels: [...state.labels, label]
   })
 },

@@ -32,6 +32,7 @@ class NewLabel extends React.Component {
 
     if (labelName) {
       this.props.addLabel(labelName);
+      this.props.handleClose();
     } else {
       this.setState({
         labelNameError: "Este campo es requerido"
@@ -50,9 +51,15 @@ class NewLabel extends React.Component {
     });
   }
 
+  handleKeyDown = event => {
+    if (event.keyCode === 13) {
+      this.handleCreate();
+    }
+  }
+
   render() {
     return (
-      <div className={s.root}>
+      <div className={s.root} onKeyDown={this.handleKeyDown}>
         <Dialog
           open={this.props.isOpen}
           onClose={this.handleClose}
@@ -84,7 +91,7 @@ class NewLabel extends React.Component {
 
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">Cancelar</Button>
-            <Button onClick={this.handleCreate} color="primary">Crear Etiqueta</Button>
+            <Button onClick={this.handleCreate} color="primary" variant="contained">Crear Etiqueta</Button>
           </DialogActions>
         </Dialog>
       </div>

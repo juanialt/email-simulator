@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import classNames from "classnames";
 import orderBy from "lodash/orderBy";
 import { getReceivedMessages, getSentMessages } from "../../reducers/messages";
-import Email from "../Email";
+import Email from "../Email/Email";
 
 import s from "./styles.scss";
 
@@ -24,9 +24,9 @@ class Dashboard extends React.Component {
       this.props.getSentMessages();
     }
 
-    console.log("----------");
-    console.log(pathName);
-    console.log("----------");
+    // console.log("----------");
+    // console.log(pathName);
+    // console.log("----------");
   }
 
   // componentDidUpdate(prevProps) {
@@ -98,6 +98,8 @@ class Dashboard extends React.Component {
 
   render() {
     const pathName = (this.props.location && this.props.location.pathname) || "";
+
+    // console.log("juani 2");
 
     if (pathName.includes("inbox")) {
       return this.renderInbox();

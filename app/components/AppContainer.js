@@ -8,10 +8,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 import AppHeader from "../components/AppHeader";
 import Navbar from "../components/Navbar/Navbar";
-import Dashboard from "../containers/Dashboard";
 import NewEmail from "../containers/NewEmail";
 
 import "./AppContainer.scss";
+import EmailsSent from "../containers/EmailsSent/EmailSent";
+import EmailsReceived from "../containers/EmailsReceived/EmailsReceived";
+import EmailsLabel from "../containers/EmailsLabel/EmailsLabel";
 
 class AppContainer extends React.Component {
   static defaultProps = {
@@ -30,9 +32,9 @@ class AppContainer extends React.Component {
         <section className="app-container-component-content">
           <Navbar />
           <Switch>
-            <Route exact path="/mails/inbox" component={Dashboard} />
-            <Route exact path="/mails/sent" component={Dashboard} />
-            <Route path="/mails/:label" component={Dashboard} />
+            <Route exact path="/mails/inbox" component={EmailsReceived} />
+            <Route exact path="/mails/sent" component={EmailsSent} />
+            <Route path="/mails/:label" component={EmailsLabel} />
             <Route path="/newemail" component={NewEmail} />
           </Switch>
         </section>
