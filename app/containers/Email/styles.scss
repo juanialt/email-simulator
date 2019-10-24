@@ -145,3 +145,18 @@
     }
   }
 }
+
+.labels {
+  display: flex;
+  align-items: center;
+
+  >div {
+    margin-right: 1rem;
+    font-size: 12px;
+    border-radius: 1rem;
+    padding: 0 1rem;
+    background: $indigo-800;
+    // border: 1px solid $grey-900;
+    color: white;
+  }
+}

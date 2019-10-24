@@ -17,6 +17,11 @@ export const GET_RECEIVED_MESSAGES_REQUESTED = "GET_RECEIVED_MESSAGES_REQUESTED"
 export const GET_RECEIVED_MESSAGES_SUCCEEDED = "GET_RECEIVED_MESSAGES_SUCCEEDED";
 export const GET_RECEIVED_MESSAGES_FAILED = "GET_RECEIVED_MESSAGES_FAILED";
 
+export const GET_LABEL_MESSAGES = "GET_LABEL_MESSAGES";
+export const GET_LABEL_MESSAGES_REQUESTED = "GET_LABEL_MESSAGES_REQUESTED";
+export const GET_LABEL_MESSAGES_SUCCEEDED = "GET_LABEL_MESSAGES_SUCCEEDED";
+export const GET_LABEL_MESSAGES_FAILED = "GET_LABEL_MESSAGES_FAILED";
+
 export const SEND_MESSAGE = "SEND_MESSAGE";
 export const SEND_MESSAGE_REQUESTED = "SEND_MESSAGE_REQUESTED";
 export const SEND_MESSAGE_SUCCEEDED = "SEND_MESSAGE_SUCCEEDED";
@@ -31,6 +36,7 @@ export const DELETE_EMAILS_FAILED = "DELETE_EMAILS_FAILED";
 ======================================== */
 export const getReceivedMessages = createAction(GET_RECEIVED_MESSAGES);
 export const getSentMessages = createAction(GET_SENT_MESSAGES);
+export const getLabelMessages = createAction(GET_LABEL_MESSAGES);
 export const sendMessage = createAction(SEND_MESSAGE);
 export const deleteEmails = createAction(DELETE_EMAILS);
 
@@ -69,6 +75,24 @@ function* getSentMessagesSaga() {
       position: toast.POSITION.BOTTOM_LEFT
     });
     yield put({ type: GET_SENT_MESSAGES_FAILED, error });
+  }
+}
+
+function* getLabelMessagesSaga({ payload: labelName }) {
+  yield put({ type: GET_LABEL_MESSAGES_REQUESTED });
+
+  try {
+    const response = yield axios.get(
+      `http://localhost:8888/api_email_simulator/messages.php?folder=${labelName}`,
+      { withCredentials: true }
+    );
+    yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: response.data });
+  } catch (error) {
+    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    toast.error(errorMessage, {
+      position: toast.POSITION.BOTTOM_LEFT
+    });
+    yield put({ type: GET_LABEL_MESSAGES_FAILED, error });
   }
 }
 
@@ -152,6 +176,7 @@ function* sendMessageSaga({ payload }) {
 export function* messagesSaga() {
   yield takeLatest(GET_SENT_MESSAGES, getSentMessagesSaga);
   yield takeLatest(GET_RECEIVED_MESSAGES, getReceivedMessagesSaga);
+  yield takeLatest(GET_LABEL_MESSAGES, getLabelMessagesSaga);
   yield takeLatest(SEND_MESSAGE, sendMessageSaga);
   yield takeLatest(DELETE_EMAILS, deleteEmailsSaga);
 }

@@ -56,7 +56,7 @@ class DeleteEmailConfirmation extends React.Component {
 
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">Cancelar</Button>
-            <Button onClick={this.handleDelete} color="primary">Eliminar</Button>
+            <Button onClick={this.handleDelete} color="primary" variant="contained">Eliminar</Button>
           </DialogActions>
         </Dialog>
       </div>

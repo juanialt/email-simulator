@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-// import { useParams } from "react-router-dom";
 import orderBy from "lodash/orderBy";
 
 import IconButton from "@material-ui/core/IconButton";
@@ -9,7 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import LabelIcon from "@material-ui/icons/Label";
 
 import DeleteEmailConfirmation from "../../containers/DeleteEmailConfirmation/DeleteEmailConfirmation";
-import { getReceivedMessages } from "../../reducers/messages";
+import { getLabelMessages } from "../../reducers/messages";
 import Email from "../Email/Email";
 
 import s from "./styles.scss";
@@ -21,13 +20,16 @@ class EmailsLabel extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getReceivedMessages();
+    const { match } = this.props;
+    const labelName = match.params && match.params.label;
+
+    this.props.getLabelMessages(labelName);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.deleteEmailsSucceeded === true &&
       this.props.deleteEmailsSucceeded !== prevProps.deleteEmailsSucceeded) {
-      this.props.getReceivedMessages();
+      this.props.getLabelMessages();
 
       this.setState({
         selectedEmails: []
@@ -61,16 +63,15 @@ class EmailsLabel extends React.Component {
 
   render() {
     const { selectedEmails } = this.state;
-    const { emailsReceived } = this.props;
+    const { emailsReceived, match } = this.props;
 
-    // const { id } = useParams();
-    // console.log(id);
+    const labelName = match.params && match.params.label;
 
     return (
       <React.Fragment>
         <div className={s.root}>
           <div className={s.header}>
-            <h1>asdasdasd</h1>
+            <h1>Etiqueta: {labelName}</h1>
             {selectedEmails.length > 0 &&
               <div>
                 <IconButton title="Eliminar" onClick={this.handleDeleteEmail}>
@@ -116,4 +117,4 @@ const mapStateToProps = state => {
   });
 };
 
-export default withRouter(connect(mapStateToProps, { getReceivedMessages })(EmailsLabel));
+export default withRouter(connect(mapStateToProps, { getLabelMessages })(EmailsLabel));

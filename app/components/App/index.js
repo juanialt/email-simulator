@@ -38,9 +38,6 @@ class App extends React.Component {
     store: PropTypes.object.isRequired
   };
 
-  componentDidMount() {
-  }
-
   render() {
     const { store, user } = this.props;
 

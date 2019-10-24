@@ -11,7 +11,7 @@ import s from "./styles.scss";
 class Email extends React.Component {
   state = {
     isContentVisible: false,
-    isSelected: false
+    isSelected: this.props.selected
   }
 
   handleToggleContent = () => {
@@ -67,9 +67,9 @@ class Email extends React.Component {
   handleSelect = event => {
     const { email } = this.props;
 
-    this.setState({
-      isSelected: event.target.checked
-    });
+    // this.setState({
+    //   isSelected: event.target.checked
+    // });
 
     if (event.target.checked && this.props.handleSelect) {
       this.props.handleSelect(email);
@@ -81,8 +81,8 @@ class Email extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
-    const { isContentVisible, isSelected } = this.state;
+    const { email, selected } = this.props;
+    const { isContentVisible } = this.state;
 
     const localTime = moment.utc(email.date).toDate();
     const date = moment(localTime).format("MMM D, YYYY");
@@ -97,7 +97,7 @@ class Email extends React.Component {
 
           <div>
             <Checkbox
-              checked={isSelected}
+              checked={selected}
               onChange={this.handleSelect}
               onClick={event => event.stopPropagation()}
             />
@@ -108,6 +108,10 @@ class Email extends React.Component {
             <div className={s.recipients}>Para: {recipients}</div>
           </div>
           <div className={s.subject}>{email.subject || "..."}</div>
+
+          <div className={s.labels}>
+            {email.labels && email.labels.map(label => <div key={label.id}>{label.name}</div>)}
+          </div>
 
           <div className={s.date}>
             <span>{date}</span>

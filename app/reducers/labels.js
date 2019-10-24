@@ -17,10 +17,16 @@ export const GET_LABELS_REQUESTED = "GET_LABELS_REQUESTED";
 export const GET_LABELS_SUCCEEDED = "GET_LABELS_SUCCEEDED";
 export const GET_LABELS_FAILED = "GET_LABELS_FAILED";
 
+export const ADD_EMAIL_LABEL = "ADD_EMAIL_LABEL";
+export const ADD_EMAIL_LABEL_REQUESTED = "ADD_EMAIL_LABEL_REQUESTED";
+export const ADD_EMAIL_LABEL_SUCCEEDED = "ADD_EMAIL_LABEL_SUCCEEDED";
+export const ADD_EMAIL_LABEL_FAILED = "ADD_EMAIL_LABEL_FAILED";
+
 /* Action Creators
 ======================================== */
 export const addLabel = createAction(ADD_LABEL);
 export const getLabels = createAction(GET_LABELS);
+export const addEmailLabel = createAction(ADD_EMAIL_LABEL);
 
 /* Sagas
 ======================================== */
@@ -72,11 +78,48 @@ function* getLabelsSaga() {
   }
 }
 
+function* addEmailLabelSaga({ payload }) {
+  yield put({ type: ADD_EMAIL_LABEL_REQUESTED });
+
+  const formData = new URLSearchParams();
+  const emails = payload.emails;
+  const labelId = payload.selectedLabel;
+
+  if (emails) {
+    for (let i = 0; i < emails.length; i += 1) {
+      formData.append(`emails[${i}]`, emails[i].id);
+    }
+  }
+
+  formData.append("labelId", labelId);
+
+  try {
+    const response = yield axios.post(
+      "http://localhost:8888/api_email_simulator/labels.php",
+      formData,
+      { withCredentials: true }
+    );
+
+    toast.success("Etiqueta asignada!", {
+      position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    yield put({ type: ADD_EMAIL_LABEL_SUCCEEDED, label: response.data });
+  } catch (error) {
+    const errorMessage = get(error, "response.data.message", constants.DEFAULT_SERVER_ERROR_MESSAGE);
+    toast.error(errorMessage, {
+      position: toast.POSITION.BOTTOM_LEFT
+    });
+    yield put({ type: ADD_EMAIL_LABEL_FAILED, error });
+  }
+}
+
 /* Root Saga
 ======================================== */
 export function* labelsSaga() {
   yield takeLatest(ADD_LABEL, addLabelSaga);
   yield takeLatest(GET_LABELS, getLabelsSaga);
+  yield takeLatest(ADD_EMAIL_LABEL, addEmailLabelSaga);
 }
 
 /* Initial Reducer State
@@ -88,7 +131,11 @@ const initialState = {
   fetchingLabelsError: "",
 
   fetchingAddLabel: false,
-  fetchingAddLabelError: ""
+  fetchingAddLabelError: "",
+  fetchingAddLabelSuccess: null,
+
+  fetchingAddEmailLabel: false,
+  addEmailLabelSuccess: null
 };
 
 /* Reducer
@@ -113,6 +160,22 @@ export const labelsReducer = handleActions({
     fetchingAddLabel: false,
     fetchingAddLabelSuccess: true,
     labels: [...state.labels, label]
+  }),
+
+  ADD_EMAIL_LABEL_REQUESTED: state => ({
+    ...state,
+    fetchingAddEmailLabel: true,
+    addEmailLabelSuccess: null
+  }),
+  ADD_EMAIL_LABEL_SUCCEEDED: state => ({
+    ...state,
+    fetchingAddEmailLabel: false,
+    addEmailLabelSuccess: true
+  }),
+  ADD_EMAIL_LABEL_FAILED: state => ({
+    ...state,
+    fetchingAddEmailLabel: false,
+    addEmailLabelSuccess: false
   })
 },
   initialState

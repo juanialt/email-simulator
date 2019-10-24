@@ -8,6 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import LabelIcon from "@material-ui/icons/Label";
 
 import DeleteEmailConfirmation from "../../containers/DeleteEmailConfirmation/DeleteEmailConfirmation";
+import SetLabel from "../../containers/SetLabel/SetLabel";
 import { getReceivedMessages } from "../../reducers/messages";
 import Email from "../Email/Email";
 
@@ -16,7 +17,8 @@ import s from "./styles.scss";
 class EmailsReceived extends React.Component {
   state = {
     selectedEmails: [],
-    isModalOpen: false
+    isModalOpen: false,
+    isSetLabelOpen: false
   }
 
   componentDidMount() {
@@ -24,8 +26,10 @@ class EmailsReceived extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.deleteEmailsSucceeded === true &&
-      this.props.deleteEmailsSucceeded !== prevProps.deleteEmailsSucceeded) {
+    const { deleteEmailsSucceeded, addEmailLabelSuccess } = this.props;
+
+    if ((deleteEmailsSucceeded === true && deleteEmailsSucceeded !== prevProps.deleteEmailsSucceeded)
+      || (addEmailLabelSuccess === true && addEmailLabelSuccess !== prevProps.addEmailLabelSuccess)) {
       this.props.getReceivedMessages();
 
       this.setState({
@@ -58,6 +62,18 @@ class EmailsReceived extends React.Component {
     });
   }
 
+  handleOpenSetLabelModal = () => {
+    this.setState({
+      isSetLabelOpen: true
+    });
+  }
+
+  handleCloseSetLabelModal = () => {
+    this.setState({
+      isSetLabelOpen: false
+    });
+  }
+
   render() {
     const { selectedEmails } = this.state;
     const { emailsReceived } = this.props;
@@ -72,7 +88,7 @@ class EmailsReceived extends React.Component {
                 <IconButton title="Eliminar" onClick={this.handleDeleteEmail}>
                   <DeleteIcon />
                 </IconButton>
-                <IconButton title="Asignar Etiqueta">
+                <IconButton title="Asignar Etiqueta" onClick={this.handleOpenSetLabelModal}>
                   <LabelIcon />
                 </IconButton>
               </div>
@@ -86,16 +102,26 @@ class EmailsReceived extends React.Component {
               <Email
                 key={email.id}
                 email={email}
+                selected={!!selectedEmails.find(el => el.id === email.id)}
                 handleSelect={this.handleSelectEmail}
                 handleDeselect={this.handleDeselectEmail} />
             )}
           </section>
         </div>
-        <DeleteEmailConfirmation
-          emails={selectedEmails}
-          amount={selectedEmails.length}
-          isOpen={this.state.isModalOpen}
-          handleClose={this.handleCloseModal} />
+        {this.state.isModalOpen &&
+          <DeleteEmailConfirmation
+            emails={selectedEmails}
+            amount={selectedEmails.length}
+            isOpen={this.state.isModalOpen}
+            handleClose={this.handleCloseModal} />
+        }
+
+        {this.state.isSetLabelOpen &&
+          <SetLabel
+            emails={selectedEmails}
+            isOpen={this.state.isSetLabelOpen}
+            handleClose={this.handleCloseSetLabelModal} />
+        }
       </React.Fragment>
     );
   }
@@ -104,11 +130,13 @@ class EmailsReceived extends React.Component {
 const mapStateToProps = state => {
   const { user } = state.session;
   const { emailsReceived, deleteEmailsSucceeded } = state.messages;
+  const { addEmailLabelSuccess } = state.labels;
 
   return ({
     user,
     emailsReceived,
-    deleteEmailsSucceeded
+    deleteEmailsSucceeded,
+    addEmailLabelSuccess
   });
 };
 

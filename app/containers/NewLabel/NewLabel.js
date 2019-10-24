@@ -32,6 +32,10 @@ class NewLabel extends React.Component {
 
     if (labelName) {
       this.props.addLabel(labelName);
+      this.setState({
+        labelName: "",
+        labelNameError: ""
+      });
       this.props.handleClose();
     } else {
       this.setState({
