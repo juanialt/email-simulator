@@ -184,11 +184,8 @@ export function* messagesSaga() {
 /* Initial Reducer State
 ======================================== */
 const initialState = {
-  emailsReceived: [],
-  emailsSent: [],
-
-  fetchingSentMessages: false,
-  fetchingReceivedMessages: false,
+  emails: [],
+  fetchingMessages: false,
 
   fetchingDeleteEmails: false,
   deleteEmailsSucceeded: null
@@ -199,22 +196,22 @@ const initialState = {
 export const messagesReducer = handleActions({
   GET_SENT_MESSAGES_REQUESTED: state => ({
     ...state,
-    fetchingSentMessages: true
+    fetchingMessages: true
   }),
   GET_SENT_MESSAGES_SUCCEEDED: (state, { messages }) => ({
     ...state,
-    emailsSent: messages,
-    fetchingSentMessages: false
+    emails: messages,
+    fetchingMessages: false
   }),
 
   GET_RECEIVED_MESSAGES_REQUESTED: state => ({
     ...state,
-    fetchingReceivedMessages: true
+    fetchingMessages: true
   }),
   GET_RECEIVED_MESSAGES_SUCCEEDED: (state, { messages }) => ({
     ...state,
-    emailsReceived: messages,
-    fetchingReceivedMessages: false
+    emails: messages,
+    fetchingMessages: false
   }),
 
   DELETE_EMAILS_REQUESTED: state => ({

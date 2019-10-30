@@ -11,9 +11,10 @@ import Navbar from "../components/Navbar/Navbar";
 import NewEmail from "../containers/NewEmail";
 
 import "./AppContainer.scss";
-import EmailsSent from "../containers/EmailsSent/EmailSent";
-import EmailsReceived from "../containers/EmailsReceived/EmailsReceived";
-import EmailsLabel from "../containers/EmailsLabel/EmailsLabel";
+// import EmailsSent from "../containers/EmailsSent/EmailSent";
+// import EmailsReceived from "../containers/EmailsReceived/EmailsReceived";
+// import EmailsLabel from "../containers/EmailsLabel/EmailsLabel";
+import Emails from "../containers/Emails/Emails";
 
 class AppContainer extends React.Component {
   static defaultProps = {
@@ -32,9 +33,12 @@ class AppContainer extends React.Component {
         <section className="app-container-component-content">
           <Navbar />
           <Switch>
-            <Route exact path="/mails/inbox" component={EmailsReceived} />
+            <Route exact path="/mails/inbox" component={Emails} />
+            <Route exact path="/mails/sent" component={Emails} />
+            <Route path="/mails/:label" component={Emails} />
+            {/* <Route exact path="/mails/inbox" component={EmailsReceived} />
             <Route exact path="/mails/sent" component={EmailsSent} />
-            <Route path="/mails/:label" component={EmailsLabel} />
+            <Route path="/mails/:label" component={EmailsLabel} /> */}
             <Route path="/newemail" component={NewEmail} />
           </Switch>
         </section>
