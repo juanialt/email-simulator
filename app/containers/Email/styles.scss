@@ -22,25 +22,29 @@
 } 
 
 .emailHeaders {
-  background: white;
-
   display: flex;
+  flex-direction: column;
   padding: 1rem;
   cursor: pointer;
+  background: white;
 
   &:hover {
-    background: $blue-50;
+    background: $grey-200;
+  }
+
+  > div {
+    display: flex;
   }
 }
 
 .senderRecipient {
-  background: gold;
+  padding: 0 1rem;
   width: 30rem;
 }
 
 .subject {
   flex: 1;
-  padding: 0 2rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
 }
@@ -148,15 +152,23 @@
 
 .labels {
   display: flex;
-  align-items: center;
+  margin-top: 10px;
+  border-top: 1px solid $grey-300;
+  padding-top: 10px;
 
   >div {
     margin-right: 1rem;
     font-size: 12px;
     border-radius: 1rem;
     padding: 0 1rem;
-    background: $indigo-800;
+    background: $blue-grey-500;
     // border: 1px solid $grey-900;
     color: white;
+  }
+}
+
+.selected {
+  .emailHeaders {
+    background: $blue-grey-100;
   }
 }

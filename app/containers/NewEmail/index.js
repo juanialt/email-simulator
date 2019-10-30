@@ -152,7 +152,15 @@ class NewEmail extends React.Component {
     return (
       <div className={s.root}>
         <section className={classNames(s.header, "d-flex flex-column")}>
-          <Input name="from" value={from} placeholder="Remitente" type="email" required disabled onChange={this.handleInputChange} />
+          <Input
+            name="from"
+            value={from}
+            placeholder="Remitente"
+            type="email"
+            required
+            disabled
+            onChange={this.handleInputChange}
+          />
 
           <Select
             multiple
@@ -165,7 +173,14 @@ class NewEmail extends React.Component {
           </Select>
 
 
-          <Input name="subject" value={subject} placeholder="Asunto" onChange={this.handleInputChange} />
+          <Input
+            name="subject"
+            value={subject}
+            placeholder="Asunto"
+            onChange={this.handleInputChange}
+            inputProps={{
+              maxLength: 255
+            }} />
         </section>
 
         <section className={s.editorContainer}>

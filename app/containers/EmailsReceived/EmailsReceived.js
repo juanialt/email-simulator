@@ -36,6 +36,14 @@ class EmailsReceived extends React.Component {
         selectedEmails: []
       });
     }
+
+    if ((prevProps.deleteLabelSuccess !== this.props.deleteLabelSuccess) && this.props.deleteLabelSuccess) {
+      this.props.getReceivedMessages();
+
+      this.setState({
+        selectedEmails: []
+      });
+    }
   }
 
   handleSelectEmail = email => {
@@ -130,13 +138,14 @@ class EmailsReceived extends React.Component {
 const mapStateToProps = state => {
   const { user } = state.session;
   const { emailsReceived, deleteEmailsSucceeded } = state.messages;
-  const { addEmailLabelSuccess } = state.labels;
+  const { addEmailLabelSuccess, deleteLabelSuccess } = state.labels;
 
   return ({
     user,
     emailsReceived,
     deleteEmailsSucceeded,
-    addEmailLabelSuccess
+    addEmailLabelSuccess,
+    deleteLabelSuccess
   });
 };
 

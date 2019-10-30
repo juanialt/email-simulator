@@ -3,10 +3,22 @@ import moment from "moment";
 import { truncate } from "lodash";
 import classNames from "classnames";
 import Checkbox from "@material-ui/core/Checkbox";
+import { withStyles } from "@material-ui/core/styles";
+import { blueGrey } from "@material-ui/core/colors";
 
 import { formatBytes } from "../../../lib/browser-utils";
 import constants from "../../constants";
 import s from "./styles.scss";
+
+const CustomCheckbox = withStyles({
+  root: {
+    // color: blueGrey[400],
+    "&$checked": {
+      color: blueGrey[600]
+    }
+  },
+  checked: {}
+})(props => <Checkbox color="default" {...props} />);
 
 class Email extends React.Component {
   state = {
@@ -92,31 +104,41 @@ class Email extends React.Component {
     const recipients = email.recipients.map(recipient => `${recipient.firstname} ${recipient.lastname}`).join(", ");
 
     return (
-      <div key={email.id} className={classNames("paper-shadow-1", s.email, { [s.visible]: isContentVisible })}>
+      <div key={email.id} className={classNames("paper-shadow-1", s.email, { [s.visible]: isContentVisible, [s.selected]: selected })}>
         <div className={s.emailHeaders} onClick={this.handleToggleContent}>
-
           <div>
-            <Checkbox
-              checked={selected}
-              onChange={this.handleSelect}
-              onClick={event => event.stopPropagation()}
-            />
+            <div>
+              <CustomCheckbox
+                checked={selected}
+                onChange={this.handleSelect}
+                onClick={event => event.stopPropagation()}
+              />
+              {/* <Checkbox
+                className={s.checkbox}
+                checked={selected}
+                onChange={this.handleSelect}
+                onClick={event => event.stopPropagation()}
+              /> */}
+            </div>
+
+            <div className={s.senderRecipient}>
+              <div className={s.sender}>De: {sender}</div>
+              <div className={s.recipients}>Para: {recipients}</div>
+            </div>
+            <div className={s.subject}>{email.subject || "..."}</div>
+
+            <div className={s.date}>
+              <span>{date}</span>
+              <span>{time}</span>
+            </div>
           </div>
 
-          <div className={s.senderRecipient}>
-            <div className={s.sender}>De: {sender}</div>
-            <div className={s.recipients}>Para: {recipients}</div>
-          </div>
-          <div className={s.subject}>{email.subject || "..."}</div>
+          {email.labels && email.labels.length > 0 &&
+            <div className={s.labels}>
+              {email.labels.map(label => <div key={label.id}>{label.name}</div>)}
+            </div>
+          }
 
-          <div className={s.labels}>
-            {email.labels && email.labels.map(label => <div key={label.id}>{label.name}</div>)}
-          </div>
-
-          <div className={s.date}>
-            <span>{date}</span>
-            <span>{time}</span>
-          </div>
         </div>
 
         {isContentVisible &&

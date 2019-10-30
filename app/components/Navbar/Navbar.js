@@ -11,17 +11,25 @@ import classNames from "classnames";
 import { connect } from "react-redux";
 
 import NewLabel from "../../containers/NewLabel/NewLabel";
-import { getLabels } from "../../reducers/labels";
+import DeleteLabel from "../../containers/DeleteLabelConfirmation/DeleteLabelConfirmation";
+import { getLabels, deleteLabel } from "../../reducers/labels";
 
 import s from "./Navbar.scss";
 
 class Navbar extends React.Component {
   state = {
-    isModalOpen: false
+    isModalOpen: false,
+    deleteLabelOpen: false
   }
 
   componentDidMount() {
     this.props.getLabels(this.props.user.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if ((prevProps.deleteLabelSuccess !== this.props.deleteLabelSuccess) && this.props.deleteLabelSuccess) {
+      this.props.getLabels(this.props.user.id);
+    }
   }
 
   handleAddLabelClick = () => {
@@ -32,7 +40,31 @@ class Navbar extends React.Component {
 
   handleCloseModal = () => {
     this.setState({
-      isModalOpen: false
+      isModalOpen: false,
+      deleteLabelOpen: false
+    });
+  }
+
+  requestDeleteLabel = (e, label) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    this.setState({
+      selectedLabelToDelete: label,
+      deleteLabelOpen: true
+    });
+  }
+
+  handleDeleteLabel = () => {
+    const { selectedLabelToDelete: label } = this.state;
+
+    if (this.props.location && this.props.location.pathname && this.props.location.pathname === `/mails/${label.name}`) {
+      this.props.history.push("/mails/inbox");
+    }
+
+    this.props.deleteLabel({
+      labelId: label.id,
+      userId: label.userId
     });
   }
 
@@ -61,13 +93,18 @@ class Navbar extends React.Component {
             <Divider className={s.divider} />
 
             <List className={s.list}>
-            {labels.map(label => (
-              <ListItem className={s.listItem} key={label.id} activeClassName={s.selected} component={NavLink} to={`/mails/${label.name}`}>
-                <ListItemIcon><Label /></ListItemIcon>
-                <ListItemText className={s.label} inset primary={label.name} />
-                <div className={s.actions}><Delete /></div>
-              </ListItem>
-            ))}
+              {labels.map(label => (
+                <ListItem
+                  className={s.listItem}
+                  key={label.id}
+                  activeClassName={s.selected}
+                  component={NavLink}
+                  to={`/mails/${label.name}`}>
+                  <ListItemIcon><Label /></ListItemIcon>
+                  <ListItemText title={label.name} className={s.label} inset primary={label.name} />
+                  <div className={s.actions} onClick={e => this.requestDeleteLabel(e, label)}><Delete /></div>
+                </ListItem>
+              ))}
             </List>
 
             <Divider className={s.divider} />
@@ -79,6 +116,14 @@ class Navbar extends React.Component {
           </List>
         </section>
         <NewLabel isOpen={this.state.isModalOpen} handleClose={this.handleCloseModal} />
+
+        {this.state.deleteLabelOpen &&
+          <DeleteLabel
+            label={this.state.selectedLabelToDelete}
+            isOpen={this.state.deleteLabelOpen}
+            handleClose={this.handleCloseModal}
+            handleDelete={this.handleDeleteLabel} />
+        }
       </React.Fragment>
     );
   }
@@ -86,14 +131,16 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => {
   const { user } = state.session;
-  const { labels } = state.labels;
+  const { labels, deleteLabelSuccess } = state.labels;
 
   return ({
     user,
-    labels
+    labels,
+    deleteLabelSuccess
   });
 };
 
 export default withRouter(connect(mapStateToProps, {
-  getLabels
+  getLabels,
+  deleteLabel
 })(Navbar));

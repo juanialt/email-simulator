@@ -6,10 +6,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
@@ -20,9 +16,6 @@ import s from "./styles.scss";
 class SetLabel extends React.Component {
   state = {
     open: this.props.isOpen,
-    selectedLabel: "",
-    selectError: false,
-    selectErrorMessage: "Este campo es requerido",
     labelsCheckbox: [],
     labelsCheckboxInitial: []
   };
@@ -51,34 +44,19 @@ class SetLabel extends React.Component {
   }
 
   handleClose = () => {
-    this.setState({
-      selectError: false,
-      selectedLabel: ""
-    });
-
     this.props.handleClose();
   };
 
   handleAddEmailLabel = () => {
     const { labelsCheckbox } = this.state;
-    // const { emails } = this.props;
+    const { emails } = this.props;
 
-    if (labelsCheckbox.some(label => label.checked)) {
-      // this.props.addEmailLabel({ selectedLabel, emails });
-      this.handleClose();
-    } else {
-      this.setState({
-        selectError: true
-      });
-    }
+    const selectLabels = labelsCheckbox.filter(label => label.checked);
+    const deleteLabels = labelsCheckbox.filter(label => !label.checked && !label.indeterminate);
+
+    this.props.addEmailLabel({ selectLabels, deleteLabels, emails });
+    this.handleClose();
   };
-
-  handleInputChange = event => {
-    this.setState({
-      selectedLabel: event.target.value,
-      selectError: false
-    });
-  }
 
   handleKeyDown = event => {
     if (event.keyCode === 13) {
@@ -121,53 +99,71 @@ class SetLabel extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Asignar Etiqueta</DialogTitle>
-          <DialogContent>
-            <DialogContentText className="m-b-25">
-              Podes asignarle una o mas etiquetas a los mensajes.
-              <br></br>
-              Selecciona una etiqueta de las creadas para poder continuar.
-            </DialogContentText>
-            <div className="m-b-25">
 
-              {labelsCheckbox.map(label =>
-                <FormControlLabel
-                  key={label.id}
-                  control={
-                    <Checkbox
-                      checked={label.checked}
-                      onChange={this.handleSelectLabel}
-                      value={label.name}
-                      indeterminate={label.indeterminate}
+          {this.props.labels && this.props.labels.length > 0 &&
+            <React.Fragment>
+              <DialogContent>
+                <DialogContentText className="m-b-25">
+                  <span>Podes asignarle una o mas etiquetas a los mensajes.</span>
+                  <br></br>
+                  <span>Selecciona una etiqueta de las creadas para poder continuar.</span>
+                </DialogContentText>
+
+                <div>
+                  {labelsCheckbox.map(label =>
+                    <FormControlLabel
+                      key={label.id}
+                      control={
+                        <Checkbox
+                          checked={label.checked}
+                          onChange={this.handleSelectLabel}
+                          value={label.name}
+                          indeterminate={label.indeterminate}
+                        />
+                      }
+                      label={label.name}
                     />
-                  }
-                  label={label.name}
-                />
-              )}
-
-              <FormControl className="w-100" error={this.state.selectError}>
-                <Select
-                  className="w-100"
-                  value={this.state.selectedLabel}
-                  onChange={this.handleInputChange}
-                  displayEmpty
-                  name="Etiqueta"
-                >
-                  <MenuItem value={""} disabled>Etiqueta</MenuItem>
-                  {this.props.labels.map(label =>
-                    <MenuItem key={label.id} value={label.id}>{label.name}</MenuItem>
                   )}
-                </Select>
-                {this.state.selectError &&
-                  <FormHelperText>{this.state.selectErrorMessage}</FormHelperText>
-                }
-              </FormControl>
-            </div>
-          </DialogContent>
+                </div>
+              </DialogContent>
 
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">Cancelar</Button>
-            <Button onClick={this.handleAddEmailLabel} color="primary" variant="contained">Asignar Etiqueta</Button>
-          </DialogActions>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">Cancelar</Button>
+                <Button onClick={this.handleAddEmailLabel} color="primary" variant="contained">Asignar Etiqueta</Button>
+              </DialogActions>
+            </React.Fragment>
+          }
+
+          {this.props.labels && this.props.labels.length === 0 &&
+            <React.Fragment>
+              <DialogContent>
+                <DialogContentText className="m-b-25">
+                  <span>Tenes que crear una etiqueta primero para poder asignarla a los mensajes</span>
+                </DialogContentText>
+
+                <div>
+                  {labelsCheckbox.map(label =>
+                    <FormControlLabel
+                      key={label.id}
+                      control={
+                        <Checkbox
+                          checked={label.checked}
+                          onChange={this.handleSelectLabel}
+                          value={label.name}
+                          indeterminate={label.indeterminate}
+                        />
+                      }
+                      label={label.name}
+                    />
+                  )}
+                </div>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary" variant="contained">Aceptar</Button>
+              </DialogActions>
+            </React.Fragment>
+          }
         </Dialog>
       </div >
     );
