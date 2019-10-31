@@ -23,7 +23,6 @@ import { getCountries } from "../../reducers/regions";
 import s from "./styles.scss";
 
 class Register extends React.Component {
-
   state = {
     username: "",
     name: "",
@@ -164,9 +163,8 @@ class Register extends React.Component {
   }
 
   handleInputChange = event => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const { target } = event;
+    const { value, name } = target;
 
     this.setState({
       [name]: value,

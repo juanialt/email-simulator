@@ -90,9 +90,7 @@ function* addEmailLabelSaga({ payload }) {
   yield put({ type: ADD_EMAIL_LABEL_REQUESTED });
 
   const formData = new URLSearchParams();
-  const emails = payload.emails;
-  const selectLabels = payload.selectLabels;
-  const deleteLabels = payload.deleteLabels;
+  const { emails, selectLabels, deleteLabels } = payload;
 
   if (emails) {
     for (let i = 0; i < emails.length; i += 1) {
@@ -241,6 +239,4 @@ export const labelsReducer = handleActions({
     ...state,
     deleteLabelSuccess: false
   })
-},
-  initialState
-);
+}, initialState);

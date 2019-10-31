@@ -14,8 +14,10 @@ const configureStore = () => {
 
   return {
     ...createStore(
-        combineReducers({ app, session, messages, users, regions, labels }),
-        applyMiddleware(sagaMiddleware)
+      combineReducers({
+        app, session, messages, users, regions, labels
+      }),
+      applyMiddleware(sagaMiddleware)
     ),
     runSaga: sagaMiddleware.run(rootSaga)
   };

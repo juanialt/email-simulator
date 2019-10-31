@@ -6,8 +6,8 @@ import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import AppHeader from "../components/AppHeader";
-import Navbar from "../components/Navbar/Navbar";
+import AppHeader from "./AppHeader";
+import Navbar from "./Navbar/Navbar";
 import NewEmail from "../containers/NewEmail";
 
 import "./AppContainer.scss";

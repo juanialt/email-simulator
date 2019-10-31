@@ -196,6 +196,4 @@ export const sessionReducer = handleActions({
     signoutFetching: false,
     signoutError: error
   })
-},
-  initialState
-);
+}, initialState);

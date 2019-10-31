@@ -47,6 +47,4 @@ export const appReducer = handleActions({
     ...state,
     userSelected: null
   })
-},
-  initialState
-);
+}, initialState);

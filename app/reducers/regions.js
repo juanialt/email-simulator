@@ -60,6 +60,4 @@ export const regionsReducer = handleActions({
     countries,
     fetchingCountries: false
   })
-},
-  initialState
-);
+}, initialState);

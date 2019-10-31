@@ -241,6 +241,4 @@ export const messagesReducer = handleActions({
     fetchingDeleteEmails: false,
     deleteEmailsSucceeded: false
   })
-},
-  initialState
-);
+}, initialState);

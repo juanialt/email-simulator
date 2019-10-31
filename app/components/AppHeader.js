@@ -13,7 +13,6 @@ import { signOut } from "../reducers/session";
 import s from "./AppHeader.scss";
 
 class AppHeader extends React.Component {
-
   static defaultProps = {
     user: {
       firstname: "",
@@ -28,6 +27,7 @@ class AppHeader extends React.Component {
   handleSignout = () => this.props.signOut();
 
   handleIconClick = event => this.setState({ anchorEl: event.currentTarget });
+
   handleClose = () => this.setState({ anchorEl: null });
 
   render() {

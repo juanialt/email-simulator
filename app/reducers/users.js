@@ -60,6 +60,4 @@ export const usersReducer = handleActions({
     users,
     fetchingUsers: false
   })
-},
-  initialState
-);
+}, initialState);

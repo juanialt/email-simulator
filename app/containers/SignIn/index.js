@@ -29,9 +29,8 @@ class SignIn extends React.Component {
   }
 
   handleInputChange = event => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const { target } = event;
+    const { value, name } = target;
 
     this.setState({
       [name]: value

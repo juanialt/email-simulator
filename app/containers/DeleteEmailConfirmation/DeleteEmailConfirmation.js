@@ -8,7 +8,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { deleteEmails } from "../../reducers/messages";
-import Loader from "../../containers/Loader/Loader";
+import Loader from "../Loader/Loader";
 
 import s from "./styles.scss";
 

@@ -7,8 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LabelIcon from "@material-ui/icons/Label";
 
-import DeleteEmailConfirmation from "../../containers/DeleteEmailConfirmation/DeleteEmailConfirmation";
-import SetLabel from "../../containers/SetLabel/SetLabel";
+import DeleteEmailConfirmation from "../DeleteEmailConfirmation/DeleteEmailConfirmation";
+import SetLabel from "../SetLabel/SetLabel";
 import { getReceivedMessages, getSentMessages, getLabelMessages } from "../../reducers/messages";
 import Email from "../Email/Email";
 import EmptyBoxSvg from "../../images/empty-box.svg";
@@ -35,7 +35,7 @@ class Emails extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { deleteEmailsSucceeded, addEmailLabelSuccess } = this.props;
-    const pathname = this.props.location.pathname;
+    const { pathname } = this.props.location;
     const pageSection = this.getPageSection();
 
     if ((deleteEmailsSucceeded === true && deleteEmailsSucceeded !== prevProps.deleteEmailsSucceeded)
@@ -79,11 +79,12 @@ class Emails extends React.Component {
   }
 
   getPageSection = () => {
-    const pathname = this.props.location.pathname;
+    const { pathname } = this.props.location;
 
     if (pathname === "/mails/inbox") {
       return "inbox";
-    } else if (pathname === "/mails/sent") {
+    }
+    if (pathname === "/mails/sent") {
       return "sent";
     }
     return (this.props.match.params && this.props.match.params.label) || "";

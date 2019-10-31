@@ -20,6 +20,10 @@
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "quotes": ["error", "double"],
+    "object-curly-newline": 0,
+    "operator-linebreak": 0,
+    "function-paren-newline": 0,
+    "implicit-arrow-linebreak": 0,
     "class-methods-use-this": [
         "error", {
             "exceptMethods": [
