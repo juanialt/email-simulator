@@ -11,7 +11,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  height: 50px;
+  height: 5rem;
+  border-bottom: 1px solid $grey-500;
   
   h1 {
     margin: 0;
@@ -23,5 +24,34 @@
     &:last-of-type {
       border: none;
     }
+  }
+}
+
+.emptyBox {
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  background: $grey-300;
+  justify-content: center;
+  padding: 3rem;
+  border-radius: 50%;
+  user-select: none;
+
+  img {
+    width: 100%;
+    filter: grayscale(1);
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $grey-500;
+  margin: 5rem 0;
+
+  h3 {
+    margin: 0;
+    margin-top: 1rem;
   }
 }

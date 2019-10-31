@@ -86,7 +86,9 @@ function* getLabelMessagesSaga({ payload: labelName }) {
       `http://localhost:8888/api_email_simulator/messages.php?folder=${labelName}`,
       { withCredentials: true }
     );
+    // console.log(response.data);
     yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: response.data });
+    // yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: [] });
   } catch (error) {
     const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
     toast.error(errorMessage, {
@@ -209,6 +211,16 @@ export const messagesReducer = handleActions({
     fetchingMessages: true
   }),
   GET_RECEIVED_MESSAGES_SUCCEEDED: (state, { messages }) => ({
+    ...state,
+    emails: messages,
+    fetchingMessages: false
+  }),
+
+  GET_LABEL_MESSAGES_REQUESTED: state => ({
+    ...state,
+    fetchingMessages: true
+  }),
+  GET_LABEL_MESSAGES_SUCCEEDED: (state, { messages }) => ({
     ...state,
     emails: messages,
     fetchingMessages: false

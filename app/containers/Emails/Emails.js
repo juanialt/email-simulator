@@ -9,8 +9,9 @@ import LabelIcon from "@material-ui/icons/Label";
 
 import DeleteEmailConfirmation from "../../containers/DeleteEmailConfirmation/DeleteEmailConfirmation";
 import SetLabel from "../../containers/SetLabel/SetLabel";
-import { getReceivedMessages } from "../../reducers/messages";
+import { getReceivedMessages, getSentMessages, getLabelMessages } from "../../reducers/messages";
 import Email from "../Email/Email";
+import EmptyBoxSvg from "../../images/empty-box.svg";
 
 import s from "./styles.scss";
 
@@ -23,33 +24,23 @@ class Emails extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getReceivedMessages();
+    const pageSection = this.getPageSection();
 
-    const pathname = this.props.location.pathname;
-    if (pathname === "/mails/inbox") {
-      this.setState({
-        pageSection: "inbox"
-      });
-    } else if (pathname === "mails/sent") {
-      this.setState({
-        pageSection: "sent"
-      });
-    } else {
-      const labelName = this.props.match.params && this.props.match.params.label;
-      this.setState({
-        pageSection: labelName
-      });
-    }
+    this.handleGetEmails(pageSection);
+
+    this.setState({
+      pageSection
+    });
   }
 
   componentDidUpdate(prevProps) {
     const { deleteEmailsSucceeded, addEmailLabelSuccess } = this.props;
-
-    console.log(this.props.location.pathname);
+    const pathname = this.props.location.pathname;
+    const pageSection = this.getPageSection();
 
     if ((deleteEmailsSucceeded === true && deleteEmailsSucceeded !== prevProps.deleteEmailsSucceeded)
       || (addEmailLabelSuccess === true && addEmailLabelSuccess !== prevProps.addEmailLabelSuccess)) {
-      this.props.getReceivedMessages();
+      this.handleGetEmails(pageSection);
 
       this.setState({
         selectedEmails: []
@@ -57,12 +48,45 @@ class Emails extends React.Component {
     }
 
     if ((prevProps.deleteLabelSuccess !== this.props.deleteLabelSuccess) && this.props.deleteLabelSuccess) {
-      this.props.getReceivedMessages();
+      this.handleGetEmails(pageSection);
 
       this.setState({
         selectedEmails: []
       });
     }
+
+    if (pathname && prevProps.location.pathname !== pathname) {
+      this.handleGetEmails(pageSection);
+
+      this.setState({
+        pageSection
+      });
+    }
+  }
+
+  handleGetEmails = section => {
+    switch (section) {
+      case "inbox":
+        this.props.getReceivedMessages();
+        break;
+      case "sent":
+        this.props.getSentMessages();
+        break;
+      default:
+        this.props.getLabelMessages(section);
+        break;
+    }
+  }
+
+  getPageSection = () => {
+    const pathname = this.props.location.pathname;
+
+    if (pathname === "/mails/inbox") {
+      return "inbox";
+    } else if (pathname === "/mails/sent") {
+      return "sent";
+    }
+    return (this.props.match.params && this.props.match.params.label) || "";
   }
 
   handleSelectEmail = email => {
@@ -102,16 +126,28 @@ class Emails extends React.Component {
   }
 
   render() {
-    const { selectedEmails } = this.state;
+    const { selectedEmails, pageSection } = this.state;
     const { emails } = this.props;
 
-    console.log(this.state.pageSection);
+    let pageSectionName = "...";
+
+    switch (pageSection) {
+      case "sent":
+        pageSectionName = "Bandeja de Salida";
+        break;
+      case "inbox":
+        pageSectionName = "Bandeja de Entrada";
+        break;
+      default:
+        pageSectionName = `Etiqueta: ${pageSection}`;
+        break;
+    }
 
     return (
       <React.Fragment>
         <div className={s.root}>
           <div className={s.header}>
-            <h1>Bandeja de Entrada</h1>
+            <h1>{pageSectionName}</h1>
             {selectedEmails.length > 0 &&
               <div>
                 <IconButton title="Eliminar" onClick={this.handleDeleteEmail}>
@@ -124,7 +160,14 @@ class Emails extends React.Component {
             }
           </div>
 
-          {emails.length === 0 && <h3>No recibiste ningun email todavia...</h3>}
+          {emails.length === 0 &&
+            <div className={s.emptyState}>
+              <div className={s.emptyBox}>
+                <img src={EmptyBoxSvg} />
+              </div>
+              <h3>No hay nada para mostrar</h3>
+            </div>
+          }
 
           <section className={s.emailContainer}>
             {emails && orderBy(emails, ["date"], ["desc"]).map(email =>
@@ -171,4 +214,6 @@ const mapStateToProps = state => {
   });
 };
 
-export default withRouter(connect(mapStateToProps, { getReceivedMessages })(Emails));
+export default withRouter(connect(mapStateToProps, {
+  getReceivedMessages, getSentMessages, getLabelMessages
+})(Emails));
