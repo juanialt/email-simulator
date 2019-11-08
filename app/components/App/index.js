@@ -51,8 +51,8 @@ class App extends React.Component {
                   <Route exact path="/" render={() => <Redirect to="/mails/inbox" />} />
                   <Route path="/mails" component={AppContainer} />
                   <Route path="/newemail" component={AppContainer} />
-                  <Redirect from='/register' to='/mails/inbox' />
-                  <Redirect from='/sign-in' to='/mails/inbox' />
+                  <Redirect from="/register" to="/mails/inbox" />
+                  <Redirect from="/sign-in" to="/mails/inbox" />
                   <Route component={NoMatch} />
                 </Switch>
               </MuiThemeProvider>

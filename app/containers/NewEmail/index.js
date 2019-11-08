@@ -1,13 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Editor } from "react-draft-wysiwyg";
-import { convertToRaw } from "draft-js";
+import { convertToRaw, EditorState, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import classNames from "classnames";
 import { toast } from "react-toastify";
+import base64 from "base-64";
+import { withRouter } from "react-router-dom";
 
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -18,12 +21,6 @@ import { getUsers } from "../../reducers/users";
 
 import s from "./styles.scss";
 
-// function validateEmailFormat(email) {
-//   // eslint-disable-next-line no-useless-escape
-//   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//   return re.test(String(email).toLowerCase());
-// }
-
 class NewEmail extends React.Component {
   state = {
     contentState: null,
@@ -33,10 +30,36 @@ class NewEmail extends React.Component {
     from: this.props.user.username || "",
     to: [],
     subject: "",
-    files: null
+    files: null,
+    oldFiles: null
   }
 
   componentDidMount() {
+    const urlParams = this.props.match.params.data;
+
+    if (urlParams) {
+      const decodedParams = base64.decode(urlParams);
+      const params = JSON.parse(decodedParams);
+      const { to = [], htmlCode, files = null } = params;
+
+      console.log(htmlCode);
+
+      const blocksFromHTML = htmlToDraft(htmlCode);
+      const state = ContentState.createFromBlockArray(
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap,
+      );
+
+      const editorState = EditorState.createWithContent(state);
+
+      this.setState({
+        to,
+        htmlCode,
+        editorState,
+        oldFiles: files
+      });
+    }
+
     this.props.getUsers();
   }
 
@@ -76,20 +99,10 @@ class NewEmail extends React.Component {
       return false;
     }
 
-    // if (!validateEmailFormat(from)) {
-    //   this.showError("Remitente tiene que tener un formato de email valido");
-    //   return false;
-    // }
-
     if (!to) {
       this.showError("Ingrese por lo menos un Recipiente");
       return false;
     }
-
-    // if (!validateEmailFormat(to)) {
-    //   this.showError("Recipiente tiene que tener un formato de email valido");
-    //   return false;
-    // }
 
     return true;
   }
@@ -104,7 +117,6 @@ class NewEmail extends React.Component {
   }
 
   clearForm = () => {
-    console.log("here 123 clear!");
     this.setState({
       contentState: null,
       editorState: null,
@@ -131,12 +143,9 @@ class NewEmail extends React.Component {
       <div className={s.attachments}>
         <div><p>{message}</p></div>
         <div>
-          {Array.from(files).map((file, index) => {
-            console.log(file);
-            return (
-              <p key={index}>{file.name}</p>
-            );
-          })}
+          {Array.from(files).map((file, index) => (
+            <p key={index}>{file.name}</p>
+          ))}
         </div>
       </div>
     );
@@ -184,6 +193,7 @@ class NewEmail extends React.Component {
 
         <section className={s.editorContainer}>
           <Editor
+            defaultEditorState={editorState}
             editorState={editorState}
             toolbarClassName={s.editorToolbar}
             wrapperClassName={s.editorWrapper}
@@ -194,12 +204,7 @@ class NewEmail extends React.Component {
 
         {files && this.renderFiles()}
 
-        {/* <input type="file" name="fileToUpload" id="fileToUpload" multiple onChange={this.handleFileChange}></input> */}
-
         <section className={s.footer}>
-
-          {/* {files && files.map(file => <span>{file.name}</span>)} */}
-
           <input
             style={{ display: "none" }}
             type="file"
@@ -232,7 +237,7 @@ const mapStateToProps = state => {
   });
 };
 
-export default connect(mapStateToProps, {
+export default withRouter(connect(mapStateToProps, {
   sendMessage,
   getUsers
-})(NewEmail);
+})(NewEmail));

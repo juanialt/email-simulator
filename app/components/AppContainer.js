@@ -33,13 +33,9 @@ class AppContainer extends React.Component {
         <section className="app-container-component-content">
           <Navbar />
           <Switch>
-            <Route exact path="/mails/inbox" component={Emails} />
-            <Route exact path="/mails/sent" component={Emails} />
             <Route path="/mails/:label" component={Emails} />
-            {/* <Route exact path="/mails/inbox" component={EmailsReceived} />
-            <Route exact path="/mails/sent" component={EmailsSent} />
-            <Route path="/mails/:label" component={EmailsLabel} /> */}
-            <Route path="/newemail" component={NewEmail} />
+            <Route exact path="/newemail" component={NewEmail} />
+            <Route path="/newemail/:data" component={NewEmail} />
           </Switch>
         </section>
         <ToastContainer />

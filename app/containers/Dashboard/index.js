@@ -23,10 +23,6 @@ class Dashboard extends React.Component {
     if (pathName.includes("sent")) {
       this.props.getSentMessages();
     }
-
-    // console.log("----------");
-    // console.log(pathName);
-    // console.log("----------");
   }
 
   // componentDidUpdate(prevProps) {
@@ -98,8 +94,6 @@ class Dashboard extends React.Component {
 
   render() {
     const pathName = (this.props.location && this.props.location.pathname) || "";
-
-    // console.log("juani 2");
 
     if (pathName.includes("inbox")) {
       return this.renderInbox();

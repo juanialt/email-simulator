@@ -2,16 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import orderBy from "lodash/orderBy";
+import base64 from "base-64";
+import moment from "moment";
 
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LabelIcon from "@material-ui/icons/Label";
+import ReplyIcon from "@material-ui/icons/Reply";
+import ReplyAllIcon from "@material-ui/icons/ReplyAll";
+import ForwardIcon from "@material-ui/icons/Forward";
 
 import DeleteEmailConfirmation from "../DeleteEmailConfirmation/DeleteEmailConfirmation";
 import SetLabel from "../SetLabel/SetLabel";
 import { getReceivedMessages, getSentMessages, getLabelMessages } from "../../reducers/messages";
 import Email from "../Email/Email";
 import EmptyBoxSvg from "../../images/empty-box.svg";
+import constants from "../../constants";
 
 import s from "./styles.scss";
 
@@ -126,6 +132,88 @@ class Emails extends React.Component {
     });
   }
 
+  handleReply = () => {
+    const email = this.state.selectedEmails[0];
+    const date = moment(email.date, "YYYY-MM-DD HH:mm:ss").format("D [de] MMMM [de] YYYY [a las] HH:mm:ss");
+
+    const introHeader = `
+    <p>&nbsp;&nbsp;</p>
+    <p><em>El día ${date} ${email.senderFirstname} ${email.senderLastname} &lt;${email.senderUsername}&gt; escribió:</em></p>
+    <p>&nbsp;&nbsp;</p>`;
+
+    const filesAttached = !email.attachments ? "" : `
+    <p>&nbsp;</p>
+    <p>Archivos Adjuntos</p>
+    ${email.attachments.map(file => (
+      `<p><a href="${constants.SERVER_PATH}/${file.path}">${file.name}</a></p>`
+    )).join("")}
+    <p>&nbsp;</p>
+    `;
+
+    const params = {
+      to: [this.state.selectedEmails[0].senderId],
+      htmlCode: `${introHeader} ${this.state.selectedEmails[0].message} ${filesAttached}`,
+      files: email.attachments
+    };
+
+    this.props.history.push(`/newemail/${base64.encode(JSON.stringify(params))}`);
+  }
+
+  handleReplyAll = () => {
+    const email = this.state.selectedEmails[0];
+    const date = moment(email.date, "YYYY-MM-DD HH:mm:ss").format("D [de] MMMM [de] YYYY [a las] HH:mm:ss");
+
+    const introHeader = `
+    <p>&nbsp;&nbsp;</p>
+    <p><em>El día ${date} ${email.senderFirstname} ${email.senderLastname} &lt;${email.senderUsername}&gt; escribió:</em></p>
+    <p>&nbsp;&nbsp;</p>`;
+
+    const filesAttached = !email.attachments ? "" : `
+    <p>&nbsp;</p>
+    <p>Archivos Adjuntos</p>
+    ${email.attachments.map(file => (
+      `<p><a href="${constants.SERVER_PATH}/${file.path}">${file.name}</a></p>`
+    )).join("")}
+    <p>&nbsp;</p>
+    `;
+
+    const params = {
+      to: [email.senderId, ...email.recipients.map(recipient => recipient.id)],
+      htmlCode: `${introHeader} ${email.message} ${filesAttached}`
+    };
+
+    this.props.history.push(`/newemail/${base64.encode(JSON.stringify(params))}`);
+  }
+
+  handleForward = () => {
+    const email = this.state.selectedEmails[0];
+    const date = moment(email.date, "YYYY-MM-DD HH:mm:ss").format("D [de] MMMM [de] YYYY [a las] HH:mm:ss");
+
+    const introHeader = `
+    <p>&nbsp;&nbsp;</p>
+    <p>---------- Mensaje Reenviado ----------</p>
+    <p>De: ${email.senderFirstname} ${email.senderLastname} &lt;${email.senderUsername}&gt;</p>
+    <p>Fecha: ${date}</p>
+    <p>Asunto: ${email.subject}</p>
+    <p>Recipientes: ${email.recipients.map(recipient => ` ${recipient.firstname} ${recipient.lastname} &lt;${recipient.username}&gt;`)}</p>
+    <p>&nbsp;&nbsp;</p>`;
+
+    const filesAttached = !email.attachments ? "" : `
+    <p>&nbsp;</p>
+    <p>Archivos Adjuntos</p>
+    ${email.attachments.map(file => (
+      `<p><a href="${constants.SERVER_PATH}/${file.path}">${file.name}</a></p>`
+    )).join("")}
+    <p>&nbsp;</p>
+    `;
+
+    const params = {
+      htmlCode: `${introHeader} ${email.message} ${filesAttached}`
+    };
+
+    this.props.history.push(`/newemail/${base64.encode(JSON.stringify(params))}`);
+  }
+
   render() {
     const { selectedEmails, pageSection } = this.state;
     const { emails } = this.props;
@@ -151,6 +239,20 @@ class Emails extends React.Component {
             <h1>{pageSectionName}</h1>
             {selectedEmails.length > 0 &&
               <div>
+                {selectedEmails.length < 2 &&
+                  <React.Fragment>
+                    <IconButton title="Responder" onClick={this.handleReply}>
+                      <ReplyIcon />
+                    </IconButton>
+                    <IconButton title="Responder a todos" onClick={this.handleReplyAll}>
+                      <ReplyAllIcon />
+                    </IconButton>
+                    <IconButton title="Reenviar" onClick={this.handleForward}>
+                      <ForwardIcon />
+                    </IconButton>
+                  </React.Fragment>
+                }
+
                 <IconButton title="Eliminar" onClick={this.handleDeleteEmail}>
                   <DeleteIcon />
                 </IconButton>
