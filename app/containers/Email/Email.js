@@ -2,23 +2,12 @@ import React from "react";
 import moment from "moment";
 import { truncate } from "lodash";
 import classNames from "classnames";
-import Checkbox from "@material-ui/core/Checkbox";
-import { withStyles } from "@material-ui/core/styles";
-import { blueGrey } from "@material-ui/core/colors";
 
+import Checkbox from "../../components/Checkbox";
 import { formatBytes } from "../../../lib/browser-utils";
 import constants from "../../constants";
-import s from "./styles.scss";
 
-const CustomCheckbox = withStyles({
-  root: {
-    // color: blueGrey[400],
-    "&$checked": {
-      color: blueGrey[600]
-    }
-  },
-  checked: {}
-})(props => <Checkbox color="default" {...props} />);
+import s from "./styles.scss";
 
 class Email extends React.Component {
   state = {
@@ -79,10 +68,6 @@ class Email extends React.Component {
   handleSelect = event => {
     const { email } = this.props;
 
-    // this.setState({
-    //   isSelected: event.target.checked
-    // });
-
     if (event.target.checked && this.props.handleSelect) {
       this.props.handleSelect(email);
     }
@@ -108,17 +93,10 @@ class Email extends React.Component {
         <div className={s.emailHeaders} onClick={this.handleToggleContent}>
           <div>
             <div>
-              <CustomCheckbox
+              <Checkbox
                 checked={selected}
                 onChange={this.handleSelect}
-                onClick={event => event.stopPropagation()}
-              />
-              {/* <Checkbox
-                className={s.checkbox}
-                checked={selected}
-                onChange={this.handleSelect}
-                onClick={event => event.stopPropagation()}
-              /> */}
+                onClick={event => event.stopPropagation()} />
             </div>
 
             <div className={s.senderRecipient}>

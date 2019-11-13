@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Paper from "@material-ui/core/Paper";
+
 import logoImg from "../images/logo-full-crop.png";
 
 import s from "./Header.scss";

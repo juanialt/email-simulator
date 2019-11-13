@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-
 import Paper from "@material-ui/core/Paper";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -50,8 +49,7 @@ class AppHeader extends React.Component {
           <Menu
             anchorEl={anchorEl}
             open={!!anchorEl}
-            onClose={this.handleClose}
-          >
+            onClose={this.handleClose}>
             <MenuItem onClick={() => this.handleSignout()}>
               Cerrar Sesion
             </MenuItem>

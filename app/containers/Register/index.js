@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -87,8 +86,6 @@ class Register extends React.Component {
     const cityValid = this.validateEmpty("city", city);
     const passwordValid = this.validateEmpty("password", password);
     const emailValid = this.validateEmpty("email", email) && this.validateEmail("email", email);
-
-    // debugger;
 
     return (
       usernameValid &&

@@ -102,7 +102,10 @@ class Navbar extends React.Component {
                   to={`/mails/${label.name}`}>
                   <ListItemIcon><Label /></ListItemIcon>
                   <ListItemText title={label.name} className={s.label} inset primary={label.name} />
-                  <div className={s.actions} onClick={e => this.requestDeleteLabel(e, label)}><Delete /></div>
+                  <div
+                    title="Eliminar etiqueta"
+                    className={s.actions}
+                    onClick={e => this.requestDeleteLabel(e, label)}><Delete /></div>
                 </ListItem>
               ))}
             </List>

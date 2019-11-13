@@ -1,4 +1,4 @@
-@import '../../components/config.scss';
+@import "../../components/config.scss";
 
 .root {
   width: 100%;
@@ -10,7 +10,6 @@
   transition: all .2s;
 
   &.visible {
-    background: gold;
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     border-bottom: none;
@@ -19,7 +18,7 @@
       border-bottom: 0.1rem solid $grey-400;
     }
   }
-} 
+}
 
 .emailHeaders {
   display: flex;
@@ -29,7 +28,7 @@
   background: white;
 
   &:hover {
-    background: $grey-200;
+    background: $blue-grey-50;
   }
 
   > div {
@@ -107,7 +106,6 @@
     color: $grey-900;
     padding-top: 5px;
     text-decoration: none;
-
     border-top: 1px solid $grey-500;
     background: $grey-200;
     margin: 0;
@@ -152,18 +150,18 @@
 
 .labels {
   display: flex;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  margin-top: 1rem;
   border-top: 1px solid $grey-300;
-  padding-top: 10px;
 
-  >div {
+  > div {
     margin-right: 1rem;
     font-size: 12px;
     border-radius: 1rem;
     padding: 0 1rem;
     background: $blue-grey-500;
-    // border: 1px solid $grey-900;
     color: white;
+    margin-top: 1rem;
   }
 }
 

@@ -1,11 +1,11 @@
 import React from "react";
 
-import "./Footer.scss";
+import s from "./Footer.scss";
 
 const Footer = () => (
-  <footer className="footer-component">
+  <footer className={s.root}>
     <section className="container center">
-      <span>© 2018 - Email Simulator - Universidad CAECE.</span>
+      <span>© {new Date().getFullYear()} - Email Simulator</span>
     </section>
   </footer>
 );

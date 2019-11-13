@@ -6,9 +6,7 @@ import s from "./styles.scss";
 const Loader = props => (
   <div className={s.loaderContainer}>
     <CircularProgress size={50} />
-    {
-      props.message && <span>cargando</span>
-    }
+    { props.message && <span>cargando</span> }
   </div>
 );
 

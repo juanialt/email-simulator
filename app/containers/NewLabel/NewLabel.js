@@ -67,8 +67,7 @@ class NewLabel extends React.Component {
         <Dialog
           open={this.props.isOpen}
           onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
-        >
+          aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Crear Etiqueta</DialogTitle>
           <DialogContent>
             <DialogContentText className="m-b-25">
@@ -90,7 +89,9 @@ class NewLabel extends React.Component {
               onChange={this.handleInputChange}
               error={!!this.state.labelNameError}
               helperText={this.state.labelNameError}
-            />
+              inputProps={{
+                maxLength: 45
+              }} />
           </DialogContent>
 
           <DialogActions>

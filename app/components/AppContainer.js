@@ -2,19 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import AppHeader from "./AppHeader";
 import Navbar from "./Navbar/Navbar";
 import NewEmail from "../containers/NewEmail";
-
-import "./AppContainer.scss";
-// import EmailsSent from "../containers/EmailsSent/EmailSent";
-// import EmailsReceived from "../containers/EmailsReceived/EmailsReceived";
-// import EmailsLabel from "../containers/EmailsLabel/EmailsLabel";
 import Emails from "../containers/Emails/Emails";
+
+import s from "./AppContainer.scss";
 
 class AppContainer extends React.Component {
   static defaultProps = {
@@ -28,9 +24,9 @@ class AppContainer extends React.Component {
 
   render() {
     return (
-      <section className="app-container-component">
+      <section className={"app-container-component"}>
         {this.props.user && <AppHeader user={this.props.user} />}
-        <section className="app-container-component-content">
+        <section className={s.content}>
           <Navbar />
           <Switch>
             <Route path="/mails/:label" component={Emails} />

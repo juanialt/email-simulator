@@ -86,9 +86,7 @@ function* getLabelMessagesSaga({ payload: labelName }) {
       `http://localhost:8888/api_email_simulator/messages.php?folder=${labelName}`,
       { withCredentials: true }
     );
-    // console.log(response.data);
     yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: response.data });
-    // yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: [] });
   } catch (error) {
     const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
     toast.error(errorMessage, {
@@ -133,7 +131,7 @@ function* sendMessageSaga({ payload }) {
   yield put({ type: SEND_MESSAGE_REQUESTED });
 
   const { from, to, subject, htmlCode, files } = payload;
-  // const formData = new URLSearchParams();
+
   const formData = new FormData();
   formData.append("from", from);
   formData.append("to", to);
@@ -162,7 +160,6 @@ function* sendMessageSaga({ payload }) {
       position: toast.POSITION.BOTTOM_LEFT
     });
 
-    // window.location.replace("http://localhost:9090/mails/sent");
     yield put({ type: SEND_MESSAGE_SUCCEEDED, message: response.data });
   } catch (error) {
     const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");

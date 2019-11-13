@@ -4,7 +4,6 @@ import { Editor } from "react-draft-wysiwyg";
 import { convertToRaw, EditorState, ContentState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import classNames from "classnames";
@@ -19,6 +18,7 @@ import AttachIcon from "@material-ui/icons/AttachFile";
 import { sendMessage } from "../../reducers/messages";
 import { getUsers } from "../../reducers/users";
 
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import s from "./styles.scss";
 
 class NewEmail extends React.Component {
@@ -42,12 +42,10 @@ class NewEmail extends React.Component {
       const params = JSON.parse(decodedParams);
       const { to = [], htmlCode, files = null } = params;
 
-      console.log(htmlCode);
-
       const blocksFromHTML = htmlToDraft(htmlCode);
       const state = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap,
+        blocksFromHTML.entityMap
       );
 
       const editorState = EditorState.createWithContent(state);
@@ -167,8 +165,7 @@ class NewEmail extends React.Component {
             type="email"
             required
             disabled
-            onChange={this.handleInputChange}
-          />
+            onChange={this.handleInputChange} />
 
           <Select
             multiple

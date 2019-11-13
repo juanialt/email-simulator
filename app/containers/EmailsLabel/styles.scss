@@ -12,14 +12,14 @@
   align-items: center;
   margin-bottom: 2rem;
   height: 50px;
-  
+
   h1 {
     margin: 0;
   }
 }
 
 .emailContainer {
-  >div {
+  > div {
     &:last-of-type {
       border: none;
     }

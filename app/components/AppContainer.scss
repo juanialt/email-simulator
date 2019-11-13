@@ -1,9 +1,7 @@
-@import './config.scss';
+@import "./config.scss";
 
-:global {
-  .app-container-component-content {
-    display: flex;
-    background: $grey-200;
-    height: calc(100vh - #{$app-header-height});
-  }
+.content {
+  display: flex;
+  background: $grey-200;
+  height: calc(100vh - #{$app-header-height});
 }

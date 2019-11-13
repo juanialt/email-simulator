@@ -3,6 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { get } from "lodash";
+
 import { placeholderAuth } from "../../lib/browser-utils";
 
 /* Action Types
@@ -43,9 +44,6 @@ function* registerSaga({ payload }) {
     email,
     password
   } = payload;
-
-  // console.log(payload);
-  // debugger;
 
   yield put({ type: REGISTER_REQUESTED });
 
@@ -165,17 +163,11 @@ export const sessionReducer = handleActions({
     ...state,
     userFetching: true
   }),
-  SIGN_IN_SUCCEEDED: (state, { user }) => {
-    console.log("---------");
-    console.log(user);
-    console.log("---------");
-
-    return ({
-      ...state,
-      userFetching: false,
-      user
-    });
-  },
+  SIGN_IN_SUCCEEDED: (state, { user }) => ({
+    ...state,
+    userFetching: false,
+    user
+  }),
   SIGN_IN_FAILED: (state, { error }) => ({
     ...state,
     userFetching: false,

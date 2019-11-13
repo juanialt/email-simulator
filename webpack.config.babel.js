@@ -17,7 +17,7 @@ module.exports = {
     publicPath: "./public",
     contentBase: "./public",
     historyApiFallback: true,
-    port: 9090
+    port: 8080
   },
 
   devtool: "#source-map",
@@ -55,10 +55,8 @@ module.exports = {
       test: /\.js[x]?$/,
       use: ["babel-loader"],
       exclude: /node_modules/
-    }, {
-      test: /\.json?$/,
-      use: ["json-loader"]
-    }, {
+    },
+    {
       test: /\.css$/,
       use: ["style-loader", "css-loader", "postcss-loader"]
     }, {

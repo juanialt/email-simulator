@@ -7,9 +7,9 @@ class NoMatch extends React.Component {
   render() {
     return (
       <div className={s.root}>
-        <h1>Oops...</h1>
+        <h1>404</h1>
         <h3>No podemos encontrar lo que estas buscando</h3>
-        <Link to="/">Home</Link>
+        <Link to="/">Ir al Home</Link>
       </div>
     );
   }

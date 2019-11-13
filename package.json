@@ -6,10 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.production.config.babel.js",
-    "dev": "webpack-dev-server --mode development --hot --env.NODE_ENV=development --host 0.0.0.0",
-    "watch": "webpack --watch",
-    "bundle": "webpack --config webpack.config.babel.js",
-    "prestart": "npm run bundle"
+    "dev": "webpack-dev-server --mode development --hot --env.NODE_ENV=development --host 0.0.0.0"
   },
   "repository": {
     "type": "git"
@@ -72,6 +69,7 @@
     "express": "^4.15.4",
     "html-to-draftjs": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
+    "json-loader": "^0.5.7",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-precise-range-plugin": "^1.2.4",
@@ -82,6 +80,7 @@
     "prop-types": "^15.5.10",
     "pug": "^2.0.0-rc.2",
     "query-string": "^6.8.2",
+    "raw-loader": "^3.1.0",
     "react": "^16.10.2",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.0.0",
@@ -89,6 +88,7 @@
     "react-jss": "^8.6.1",
     "react-redux": "^5.0.5",
     "react-router-dom": "^5.1.2",
+    "react-syntax-highlighter": "^11.0.2",
     "react-toastify": "^4.4.3",
     "redux": "^3.6.0",
     "redux-actions": "^2.6.1",

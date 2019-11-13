@@ -1,4 +1,5 @@
 import { takeLatest, fork, all, put } from "redux-saga/effects";
+
 import { sessionSaga, SIGN_OUT_SUCCEEDED } from "./reducers/session";
 import { messagesSaga } from "./reducers/messages";
 import { usersSaga } from "./reducers/users";
@@ -6,8 +7,6 @@ import { regionsSaga } from "./reducers/regions";
 import { labelsSaga } from "./reducers/labels";
 
 function* logAction(action) {
-  console.log(action);
-
   if (action && action.error && action.error.response && action.error.response.data === "NO_SESSION") {
     localStorage.clear();
     yield put({ type: SIGN_OUT_SUCCEEDED });

@@ -1,4 +1,4 @@
-@import './config.scss';
+@import "./config.scss";
 
 .root {
   position: fixed;
@@ -21,7 +21,7 @@
 }
 
 .btn {
-  color: #323339;
+  color: $moss-river;
   height: 100%;
   padding: 0 2rem;
   text-decoration: none;
@@ -33,9 +33,9 @@
 
   &:hover {
     text-decoration: none;
-    border-bottom: 2px solid #F26968;
-    background: #F5F5F5;
-    color: #F26968;
+    border-bottom: 2px solid $blue-grey-500;
+    background: $grey-100;
+    color: $blue-grey-500;
   }
 }
 

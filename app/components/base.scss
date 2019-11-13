@@ -26,16 +26,24 @@
     justify-content: space-between;
   }
 
+  .app-container {
+    max-width: 108rem;
+    margin: 0 auto;
+  }
+
   /* Rules for sizing the icon. */
   .material-icons.md-18 {
     font-size: 18px;
   }
+
   .material-icons.md-24 {
     font-size: 24px;
   }
+
   .material-icons.md-36 {
     font-size: 36px;
   }
+
   .material-icons.md-48 {
     font-size: 48px;
   }
@@ -44,6 +52,7 @@
   .material-icons.md-dark {
     color: rgba(0, 0, 0, 0.54);
   }
+
   .material-icons.md-dark.md-inactive {
     color: rgba(0, 0, 0, 0.26);
   }
@@ -52,6 +61,7 @@
   .material-icons.md-light {
     color: rgba(255, 255, 255, 1);
   }
+
   .material-icons.md-light.md-inactive {
     color: rgba(255, 255, 255, 0.3);
   }
@@ -63,29 +73,26 @@
   }
 
   .paper-shadow-2 {
-    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2),
-      0 0.6rem 1rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.2), 0 0.6rem 1rem 0 rgba(0, 0, 0, 0.3);
   }
 
   .paper-shadow-3 {
-    box-shadow: 0 1.1rem 0.7rem 0 rgba(0, 0, 0, 0.19),
-      0 1.3rem 2.5rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1.1rem 0.7rem 0 rgba(0, 0, 0, 0.19), 0 1.3rem 2.5rem 0 rgba(0, 0, 0, 0.3);
   }
 
   .paper-shadow-4 {
-    box-shadow: 0 1.4rem 1.2rem 0 rgba(0, 0, 0, 0.17),
-      0 2rem 4rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1.4rem 1.2rem 0 rgba(0, 0, 0, 0.17), 0 2rem 4rem 0 rgba(0, 0, 0, 0.3);
   }
 
   .paper-shadow-5 {
-    box-shadow: 0 1.7rem 1.7rem 0 rgba(0, 0, 0, 0.15),
-      0 2.7rem 5.5rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1.7rem 1.7rem 0 rgba(0, 0, 0, 0.15), 0 2.7rem 5.5rem 0 rgba(0, 0, 0, 0.3);
   }
 
   /* Cards
   ======================================== */
   .card-material {
     @extend .paper-shadow-1;
+
     background-color: $grey-50;
     border-radius: 0.2rem;
     overflow: hidden;
@@ -134,56 +141,56 @@
   * ========================================================================== */
 
   @for $i from -10 through 25 {
-    :global(.ui-height#{$i*5}) {
-      height: $i * 5px !important;
+    :global(.ui-height#{$i * 5}) {
+      height: ($i * 5px) !important;
     }
 
-    :global(.ui-width#{$i*5}) {
+    :global(.ui-width#{$i * 5}) {
       width: $i * 5px;
     }
 
-    :global(.ui-min-height#{$i*5}) {
+    :global(.ui-min-height#{$i * 5}) {
       min-height: $i * 5px;
     }
 
-    :global(.ui-min-width#{$i*5}) {
+    :global(.ui-min-width#{$i * 5}) {
       min-width: $i * 5px;
     }
 
-    :global(.p-#{$i*5}) {
-      padding: $i * 5px !important;
+    :global(.p-#{$i * 5}) {
+      padding: ($i * 5px) !important;
     }
 
-    :global(.p-t-#{$i*5}) {
-      padding-top: $i * 5px !important;
+    :global(.p-t-#{$i * 5}) {
+      padding-top: ($i * 5px) !important;
     }
 
-    :global(.p-r-#{$i*5}) {
-      padding-right: $i * 5px !important;
+    :global(.p-r-#{$i * 5}) {
+      padding-right: ($i * 5px) !important;
     }
 
-    :global(.p-l-#{$i*5}) {
-      padding-left: $i * 5px !important;
+    :global(.p-l-#{$i * 5}) {
+      padding-left: ($i * 5px) !important;
     }
 
-    :global(.p-b-#{$i*5}) {
-      padding-bottom: $i * 5px !important;
+    :global(.p-b-#{$i * 5}) {
+      padding-bottom: ($i * 5px) !important;
     }
 
-    :global(.m-t-#{$i*5}) {
-      margin-top: $i * 5px !important;
+    :global(.m-t-#{$i * 5}) {
+      margin-top: ($i * 5px) !important;
     }
 
-    :global(.m-r-#{$i*5}) {
-      margin-right: $i * 5px !important;
+    :global(.m-r-#{$i * 5}) {
+      margin-right: ($i * 5px) !important;
     }
 
-    :global(.m-l-#{$i*5}) {
-      margin-left: $i * 5px !important;
+    :global(.m-l-#{$i * 5}) {
+      margin-left: ($i * 5px) !important;
     }
 
-    :global(.m-b-#{$i*5}) {
-      margin-bottom: $i * 5px !important;
+    :global(.m-b-#{$i * 5}) {
+      margin-bottom: ($i * 5px) !important;
     }
   }
 

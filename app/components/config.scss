@@ -9,19 +9,19 @@ $xlarge: 1920px;
 /* Media Rules
 ======================================== */
 
-$xs: 'only screen and (max-width: 599px)';
-$gt-xs: 'only screen and (min-width: 600px)';
+$xs: "only screen and (max-width: 599px)";
+$gt-xs: "only screen and (min-width: 600px)";
 
-$sm: 'only screen and (min-width: 600px) and (max-width: 959px)';
-$gt-sm: 'only screen and (min-width: 960px)';
+$sm: "only screen and (min-width: 600px) and (max-width: 959px)";
+$gt-sm: "only screen and (min-width: 960px)";
 
-$md: 'only screen and (min-width: 960px) and (max-width: 1279px)';
-$gt-md: 'only screen and (min-width: 1280px)';
+$md: "only screen and (min-width: 960px) and (max-width: 1279px)";
+$gt-md: "only screen and (min-width: 1280px)";
 
-$lg: 'only screen and (min-width: 1280px) and (max-width: 1919px)';
-$gt-lg: 'only screen and (min-width:1920px)';
+$lg: "only screen and (min-width: 1280px) and (max-width: 1919px)";
+$gt-lg: "only screen and (min-width:1920px)";
 
-$xl: 'only screen and (min-width: 1920px)';
+$xl: "only screen and (min-width: 1920px)";
 
 /* Fonts
 ======================================== */

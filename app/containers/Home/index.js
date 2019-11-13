@@ -1,27 +1,136 @@
 import React from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { defaultStyle as codeStyle } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import landing from "../../images/landing-wide.jpg";
+
+import reactImage from "../../images/tech/react.png";
+import sassImage from "../../images/tech/sass.png";
+import webpackImage from "../../images/tech/webpack.png";
+import nodeImage from "../../images/tech/node.png";
+import axiosImage from "../../images/tech/axios.png";
+import routerImage from "../../images/tech/router.png";
+import reduxImage from "../../images/tech/redux.png";
+import phpImage from "../../images/tech/php.png";
+import mysqlImage from "../../images/tech/mysql.png";
 
 import s from "./Home.scss";
 
 class Home extends React.Component {
   render() {
+    const codeOne = `
+    yarn install
+    `;
+
+    const codeTwo = `
+    // Compila el proyecto en modo produccion. Genera un servidor local.
+    // Se puede ver el proyecto andando en http://localhost:8080/
+    yarn start
+
+    // Compila el proyecto en modo desarrollo. Genera un servidor local y cada vez que se cambia un archivo actualiza el browser.
+    // Se puede ver el proyecto andando en http://localhost:8080/
+    yarn dev
+
+    // Compila el proyecto en modo produccion. Minimiza y ofusca todo el codigo.
+    yarn build
+    `;
+
     return (
-      <section>
+      <React.Fragment>
         <Header />
-        <section className="home-container">
-          <div className={s.titleContainer}>
-            <h1>Email Simulator</h1>
-            <h2>Universidad CAECE</h2>
-            <h3>Arquitectura Web</h3>
-          </div>
-          <div className={s.imageContainer}>
-            <img src={landing} />
-          </div>
+
+        <section className={s.content}>
+          <section className="app-container">
+            <div className={s.header}>
+              <h1>Email Simulator</h1>
+              <h3>Sistema que simula el manejo y funcionamiento de un webmail</h3>
+            </div>
+
+            <div className={s.stack}>
+              <h2>Stack tecnologico</h2>
+              {/* <ul>
+                <li>React Js</li>
+                <li>Sass</li>
+                <li>Webpack</li>
+                <li>Node Js</li>
+                <li>Axios</li>
+                <li>React Router</li>
+                <li>React Redux</li>
+
+                <li>PHP</li>
+                <li>MySQL</li>
+              </ul> */}
+
+              <div className={s.tech}>
+                <div>
+                  <img src={reactImage} />
+                  <p>React Js</p>
+                </div>
+
+                <div>
+                  <img src={sassImage} />
+                  <p>Sass</p>
+                </div>
+
+                <div>
+                  <img src={webpackImage} />
+                  <p>Webpack</p>
+                </div>
+
+                <div>
+                  <img src={nodeImage} />
+                  <p>Node Js</p>
+                </div>
+
+                <div>
+                  <img src={axiosImage} />
+                  <p>Axios</p>
+                </div>
+
+                <div>
+                  <img src={routerImage} />
+                  <p>React Router</p>
+                </div>
+
+                <div>
+                  <img src={reduxImage} />
+                  <p>React Redux</p>
+                </div>
+
+                <div>
+                  <img src={phpImage} />
+                  <p>PHP</p>
+                </div>
+
+                <div>
+                  <img src={mysqlImage} />
+                  <p>MySql</p>
+                </div>
+              </div>
+            </div>
+
+            <div className={s.setup}>
+              <h2>Setup</h2>
+              <p>Para iniciar el proyecto primero se deben instalar todas las dependencias del mismo con el comando</p>
+              <SyntaxHighlighter language="javascript" style={codeStyle}>
+                {codeOne}
+              </SyntaxHighlighter>
+              <p>Los modos de ejecucion son los siguientes:</p>
+              <SyntaxHighlighter language="javascript" style={codeStyle}>
+                {codeTwo}
+              </SyntaxHighlighter>
+            </div>
+
+            <div className={s.author}>
+              <h2>Autor</h2>
+              <p>Juan Ignacio Alterio</p>
+            </div>
+          </section>
         </section>
+
         <Footer />
-      </section>
+      </React.Fragment>
     );
   }
 }
