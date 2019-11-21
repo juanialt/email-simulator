@@ -68,7 +68,7 @@ function* registerSaga({ payload }) {
 
     yield put({ type: REGISTER_SUCCEEDED, user: response });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
@@ -96,7 +96,7 @@ function* signinSaga({ payload }) {
 
     yield put({ type: SIGN_IN_SUCCEEDED, user: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });

@@ -1,13 +1,13 @@
 @import "./config.scss";
 
 .root {
-  background: $moss-river;
+  background: #063f5f;
 
   section {
     height: 4rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: white;
+    color: rgba(255, 255, 255, 0.9);
   }
 }

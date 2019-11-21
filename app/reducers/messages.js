@@ -52,7 +52,7 @@ function* getReceivedMessagesSaga() {
     );
     yield put({ type: GET_RECEIVED_MESSAGES_SUCCEEDED, messages: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
@@ -70,7 +70,7 @@ function* getSentMessagesSaga() {
     );
     yield put({ type: GET_SENT_MESSAGES_SUCCEEDED, messages: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
@@ -88,7 +88,7 @@ function* getLabelMessagesSaga({ payload: labelName }) {
     );
     yield put({ type: GET_LABEL_MESSAGES_SUCCEEDED, messages: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
@@ -119,7 +119,7 @@ function* deleteEmailsSaga({ payload: emails }) {
 
     yield put({ type: DELETE_EMAILS_SUCCEEDED });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
@@ -162,7 +162,7 @@ function* sendMessageSaga({ payload }) {
 
     yield put({ type: SEND_MESSAGE_SUCCEEDED, message: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });

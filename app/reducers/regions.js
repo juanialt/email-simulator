@@ -27,10 +27,16 @@ function* getCountriesSaga() {
     );
     yield put({ type: GET_COUNTRIES_SUCCEEDED, countries: response.data });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(
+      error,
+      "response.data.message",
+      "Error desconocido"
+    );
+
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
+
     yield put({ type: GET_COUNTRIES_FAILED, error });
   }
 }
@@ -50,14 +56,17 @@ const initialState = {
 
 /* Reducer
 ======================================== */
-export const regionsReducer = handleActions({
-  GET_COUNTRIES_REQUESTED: state => ({
-    ...state,
-    fetchingCountries: true
-  }),
-  GET_COUNTRIES_SUCCEEDED: (state, { countries }) => ({
-    ...state,
-    countries,
-    fetchingCountries: false
-  })
-}, initialState);
+export const regionsReducer = handleActions(
+  {
+    GET_COUNTRIES_REQUESTED: state => ({
+      ...state,
+      fetchingCountries: true
+    }),
+    GET_COUNTRIES_SUCCEEDED: (state, { countries }) => ({
+      ...state,
+      countries,
+      fetchingCountries: false
+    })
+  },
+  initialState
+);

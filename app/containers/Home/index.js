@@ -1,6 +1,6 @@
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { defaultStyle as codeStyle } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { tomorrowNight as codeStyle } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -28,7 +28,8 @@ class Home extends React.Component {
     // Se puede ver el proyecto andando en http://localhost:8080/
     yarn start
 
-    // Compila el proyecto en modo desarrollo. Genera un servidor local y cada vez que se cambia un archivo actualiza el browser.
+    // Compila el proyecto en modo desarrollo. 
+    // Genera un servidor local y cada vez que se cambia un archivo actualiza el browser.
     // Se puede ver el proyecto andando en http://localhost:8080/
     yarn dev
 
@@ -44,79 +45,67 @@ class Home extends React.Component {
           <section className="app-container">
             <div className={s.header}>
               <h1>Email Simulator</h1>
-              <h3>Sistema que simula el manejo y funcionamiento de un webmail</h3>
+              <h3>
+                Sistema que simula el manejo y funcionamiento de un webmail
+              </h3>
             </div>
 
             <div className={s.stack}>
-              <h2>Stack tecnologico</h2>
-              {/* <ul>
-                <li>React Js</li>
-                <li>Sass</li>
-                <li>Webpack</li>
-                <li>Node Js</li>
-                <li>Axios</li>
-                <li>React Router</li>
-                <li>React Redux</li>
-
-                <li>PHP</li>
-                <li>MySQL</li>
-              </ul> */}
+              <h2>Stack tecnológico</h2>
 
               <div className={s.tech}>
                 <div>
-                  <img src={reactImage} />
-                  <p>React Js</p>
+                  <img src={reactImage} alt="React Js" title="React Js" />
                 </div>
 
                 <div>
-                  <img src={sassImage} />
-                  <p>Sass</p>
+                  <img src={sassImage} alt="Sass" title="Sas" />
                 </div>
 
                 <div>
-                  <img src={webpackImage} />
-                  <p>Webpack</p>
+                  <img src={webpackImage} alt="Webpack" title="Webpack" />
                 </div>
 
                 <div>
-                  <img src={nodeImage} />
-                  <p>Node Js</p>
+                  <img src={nodeImage} alt="Node Js" title="Node Js" />
                 </div>
 
                 <div>
-                  <img src={axiosImage} />
-                  <p>Axios</p>
+                  <img src={axiosImage} alt="Axios" title="Axios" />
                 </div>
 
                 <div>
-                  <img src={routerImage} />
-                  <p>React Router</p>
+                  <img
+                    src={routerImage}
+                    alt="React Router"
+                    title="React Router"
+                  />
                 </div>
 
                 <div>
-                  <img src={reduxImage} />
-                  <p>React Redux</p>
+                  <img src={reduxImage} alt="React Redux" title="React Redux" />
                 </div>
 
                 <div>
-                  <img src={phpImage} />
-                  <p>PHP</p>
+                  <img src={phpImage} alt="PHP" title="PHP" />
                 </div>
 
                 <div>
-                  <img src={mysqlImage} />
-                  <p>MySql</p>
+                  <img src={mysqlImage} alt="MySql" title="MySql" />
                 </div>
               </div>
             </div>
 
             <div className={s.setup}>
               <h2>Setup</h2>
-              <p>Para iniciar el proyecto primero se deben instalar todas las dependencias del mismo con el comando</p>
+              <p>
+                Para iniciar el proyecto primero se deben instalar todas las
+                dependencias del mismo con el comando
+              </p>
               <SyntaxHighlighter language="javascript" style={codeStyle}>
                 {codeOne}
               </SyntaxHighlighter>
-              <p>Los modos de ejecucion son los siguientes:</p>
+              <p>Los modos de ejecución son los siguientes:</p>
               <SyntaxHighlighter language="javascript" style={codeStyle}>
                 {codeTwo}
               </SyntaxHighlighter>

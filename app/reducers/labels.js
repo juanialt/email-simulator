@@ -152,7 +152,7 @@ function* deleteLabelSaga({ payload }) {
 
     yield put({ type: DELETE_LABEL_SUCCEEDED });
   } catch (error) {
-    const errorMessage = get(error, "response.data.errorMessage", "Error desconocido");
+    const errorMessage = get(error, "response.data.message", "Error desconocido");
     toast.error(errorMessage, {
       position: toast.POSITION.BOTTOM_LEFT
     });
