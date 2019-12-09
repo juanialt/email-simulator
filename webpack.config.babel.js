@@ -28,7 +28,9 @@ module.exports = {
 
   plugins: [
     new DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development")
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development"
+      )
     }),
     new CleanWebpackPlugin(["public"], {
       root: __dirname,
@@ -40,52 +42,64 @@ module.exports = {
       { from: path.resolve(__dirname, "index.html") },
       { from: path.resolve(__dirname, "./app/images/favicon.ico") },
       { from: path.resolve(__dirname, "./app/images/favicon.png") },
-      { from: path.resolve(__dirname, "./app/images/files"), to: "./images/" },
+      { from: path.resolve(__dirname, "./app/images/files"), to: "./images/" }
     ]),
     new LoaderOptionsPlugin({ options: {} })
   ],
 
   module: {
-    rules: [{
-      enforce: "pre",
-      test: /\.js[x]?$/,
-      loader: "eslint-loader",
-      exclude: /node_modules/
-    }, {
-      test: /\.js[x]?$/,
-      use: ["babel-loader"],
-      exclude: /node_modules/
-    },
-    {
-      test: /\.css$/,
-      use: ["style-loader", "css-loader", "postcss-loader"]
-    }, {
-      test: /\.scss$/,
-      use: [{
-        loader: "style-loader"
-      }, {
-        loader: "css-loader",
-        options: {
-          importLoaders: 1,
-          modules: true,
-          localIdentName: "[local]_[hash:base64:5]"
-        }
-      }, {
-        loader: "postcss-loader"
-      }, {
-        loader: "sass-loader"
-      }]
-    }, {
-      test: /.*\.(gif|png|jpe?g|svg)$/i,
-      use: [{
-        loader: "url-loader",
-        options: {
-          limit: "10000",
-          name: "[name].[ext]?[hash]",
-          publicPath: "/",
-          outputPath: "images/"
-        }
-      }]
-    }]
+    rules: [
+      {
+        enforce: "pre",
+        test: /\.js[x]?$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js[x]?$/,
+        use: ["babel-loader"],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: "[local]_[hash:base64:5]"
+            }
+          },
+          {
+            loader: "postcss-loader"
+          },
+          {
+            loader: "sass-loader"
+          }
+        ]
+      },
+      {
+        test: /.*\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: "10000",
+              name: "[name].[ext]?[hash]",
+              publicPath: "/",
+              outputPath: "images/"
+            }
+          }
+        ]
+      }
+    ]
   }
 };
