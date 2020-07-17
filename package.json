@@ -70,7 +70,7 @@
     "html-to-draftjs": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
     "json-loader": "^0.5.7",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "moment-precise-range-plugin": "^1.2.4",
     "mongodb": "^2.2.31",
