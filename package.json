@@ -73,7 +73,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moment-precise-range-plugin": "^1.2.4",
-    "mongodb": "^2.2.31",
+    "mongodb": "^3.1.13",
     "node-sass": "^4.9.0",
     "normalize-scss": "^7.0.1",
     "notistack": "^0.3.7",
